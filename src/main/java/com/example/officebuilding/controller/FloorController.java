@@ -1,7 +1,7 @@
 package com.example.officebuilding.controller;
 
 import com.example.officebuilding.entities.FloorEntity;
-import com.example.officebuilding.service.IFloorEntityService;
+import com.example.officebuilding.service.floor.IFloorEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "/floors", produces = "application/json")
+@RequestMapping(value = "/api/floors", produces = "application/json")
 public class FloorController {
     @Autowired
     private IFloorEntityService floorEntityService;

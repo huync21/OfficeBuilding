@@ -1,4 +1,4 @@
-package com.example.officebuilding.repository;
+package com.example.officebuilding.repository.floor;
 
 
 import com.example.officebuilding.entities.FloorEntity;
@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IFloorEntityRepository extends JpaRepository<FloorEntity, Integer> {
+
 }

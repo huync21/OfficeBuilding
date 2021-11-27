@@ -13,12 +13,21 @@ import java.util.Date;
 public class CompanyEmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private String socialID;
+
+    @Column(name = "socialId")
+    private String socialId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "dateOfBirth")
     private Date dateOfBirth;
+
+    @Column(name = "phoneNo")
     private String phoneNo;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity companyEntity;
 }

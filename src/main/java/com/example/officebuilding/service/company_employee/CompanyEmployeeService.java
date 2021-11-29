@@ -2,9 +2,7 @@ package com.example.officebuilding.service.company_employee;
 
 import com.example.officebuilding.dtos.CompanyEmployeeDTO;
 import com.example.officebuilding.entities.CompanyEmployeeEntity;
-import com.example.officebuilding.entities.CompanyEmployeeEntity;
-import com.example.officebuilding.repository.floor.ICompanyEmployeeRepository;
-import com.example.officebuilding.repository.floor.ICompanyEmployeeRepository;
+import com.example.officebuilding.repository.ICompanyEmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

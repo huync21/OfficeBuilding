@@ -2,7 +2,7 @@ package com.example.officebuilding.service.contract;
 
 import com.example.officebuilding.dtos.ContractDTO;
 import com.example.officebuilding.entities.ContractEntity;
-import com.example.officebuilding.repository.contract.IContractRepository;
+import com.example.officebuilding.repository.IContractRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

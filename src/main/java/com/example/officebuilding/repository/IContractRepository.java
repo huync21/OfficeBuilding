@@ -1,4 +1,4 @@
-package com.example.officebuilding.repository.contract;
+package com.example.officebuilding.repository;
 
 import com.example.officebuilding.entities.ContractEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

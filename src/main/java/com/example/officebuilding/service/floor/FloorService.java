@@ -2,7 +2,7 @@ package com.example.officebuilding.service.floor;
 
 import com.example.officebuilding.dtos.FloorDTO;
 import com.example.officebuilding.entities.FloorEntity;
-import com.example.officebuilding.repository.floor.IFloorRepository;
+import com.example.officebuilding.repository.IFloorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

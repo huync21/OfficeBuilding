@@ -1,4 +1,4 @@
-package com.example.officebuilding.repository.floor;
+package com.example.officebuilding.repository;
 
 import com.example.officebuilding.entities.CompanyEmployeeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

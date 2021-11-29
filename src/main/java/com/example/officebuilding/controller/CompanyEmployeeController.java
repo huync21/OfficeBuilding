@@ -1,12 +1,15 @@
 package com.example.officebuilding.controller;
 
+import com.example.officebuilding.dtos.CompanyEmployeeDTO;
 import com.example.officebuilding.entities.CompanyEmployeeEntity;
+import com.example.officebuilding.service.company_employee.ICompanyEmployeeService;
 import com.example.officebuilding.service.company_employee.ICompanyEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,31 +20,34 @@ public class CompanyEmployeeController {
     private ICompanyEmployeeService companyEmployeeService;
 
     @PostMapping
-    public ResponseEntity<CompanyEmployeeEntity> post(@RequestBody CompanyEmployeeEntity companyEmployeeEntity){
-        return new ResponseEntity<>(this.companyEmployeeService.save(companyEmployeeEntity), HttpStatus.OK);
+    public ResponseEntity<CompanyEmployeeDTO> createNewCompanyEmployee(@RequestBody CompanyEmployeeDTO companyEmployeeDTO){
+        return new ResponseEntity<>(companyEmployeeService.save(companyEmployeeDTO), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<CompanyEmployeeEntity>> findAll() {
-        return new ResponseEntity<>(this.companyEmployeeService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<CompanyEmployeeDTO>> getAllCompanyEmployees() {
+        return new ResponseEntity<>(companyEmployeeService.findAll(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CompanyEmployeeEntity> update(@PathVariable Integer id,@RequestBody CompanyEmployeeEntity companyEmployeeEntity){
-        Optional<CompanyEmployeeEntity> companyEmployeeEntityOptional = this.companyEmployeeService.findById(id);
+    public ResponseEntity<CompanyEmployeeDTO> updateCompanyEmployee(@PathVariable Integer id,@RequestBody CompanyEmployeeDTO companyEmployeeDTO){
+        // Lấy thử đối tượng có id đó ra xem tồn tại chưa để cập nhật, ko thì trả về status not found
+        Optional<CompanyEmployeeDTO> companyEmployeeDTOOptional = companyEmployeeService.findById(id);
 
-        return companyEmployeeEntityOptional.map(companyEmployeeOptional -> {
-            companyEmployeeEntity.setId(companyEmployeeOptional.getId());
-            return new ResponseEntity<>(this.companyEmployeeService.save(companyEmployeeEntity),HttpStatus.OK);
+        return companyEmployeeDTOOptional.map(companyEmployeeDTO1 -> {
+            companyEmployeeDTO.setId(companyEmployeeDTO1.getId());
+            CompanyEmployeeDTO updatedCompanyEmployee = companyEmployeeService.save(companyEmployeeDTO);
+            return new ResponseEntity<>(updatedCompanyEmployee,HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CompanyEmployeeEntity> deleteCategory(@PathVariable Integer id) {
-        Optional<CompanyEmployeeEntity> companyEmployeeEntityOptional = this.companyEmployeeService.findById(id);
-        return companyEmployeeEntityOptional.map(companyEmployeeOptional -> {
-            this.companyEmployeeService.remove(id);
-            return new ResponseEntity<>(companyEmployeeOptional, HttpStatus.OK);
+    public ResponseEntity<CompanyEmployeeDTO> deleteCategory(@PathVariable Integer id) {
+        // Lấy thử đối tượng có id đó ra xem tồn tại chưa để xóa, ko thì trả về status not found
+        Optional<CompanyEmployeeDTO> companyEmployeeDTOOptional = companyEmployeeService.findById(id);
+        return companyEmployeeDTOOptional.map(companyEmployeeDTO -> {
+            companyEmployeeService.remove(id);
+            return new ResponseEntity<>(companyEmployeeDTO, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

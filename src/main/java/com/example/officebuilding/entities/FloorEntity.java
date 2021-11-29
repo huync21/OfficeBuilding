@@ -18,6 +18,6 @@ public class FloorEntity {
     private double pricePerM2;
     private double groundArea;
 
-    @OneToMany(mappedBy = "floorEntity")
+    @OneToMany(mappedBy = "floorEntity",fetch = FetchType.LAZY)
     private List<RentedAreaEntity> rentedAreas;
 }

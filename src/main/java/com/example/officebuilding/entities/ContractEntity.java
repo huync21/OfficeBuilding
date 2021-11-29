@@ -20,7 +20,7 @@ public class ContractEntity {
     private Date expiredDate;
     private double rentPrice;
 
-    @OneToMany(mappedBy = "contractEntity")
+    @OneToMany(mappedBy = "contractEntity", fetch = FetchType.LAZY)
     private List<RentedAreaEntity> rentedAreaEntities;
 
     @ManyToOne

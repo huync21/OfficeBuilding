@@ -15,7 +15,7 @@ public class RentedAreaEntity {
     private int id;
     private double groundArea;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_id")
     private FloorEntity floorEntity;
 

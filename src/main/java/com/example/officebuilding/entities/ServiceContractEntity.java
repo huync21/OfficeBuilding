@@ -15,12 +15,13 @@ public class ServiceContractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date startDate;
-    private Date cancelDate;
+    private Date expireDate;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "service_contract_id")
-    private ServiceEntity serviceEntity;
+    private ServiceEntity service;
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private CompanyEntity companyEntity;
+    private CompanyEntity company;
 }

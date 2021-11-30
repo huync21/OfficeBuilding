@@ -18,15 +18,16 @@ public class ContractEntity {
     private int id;
     private Date rentedDate;
     private Date expiredDate;
-    private double rentPrice;
-
-    @OneToMany(mappedBy = "contractEntity", fetch = FetchType.LAZY)
-    private List<RentedAreaEntity> rentedAreaEntities;
+    private double rentedArea;
+    private String description;
+    private int isCanceled;
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private CompanyEntity companyEntity;
+    private CompanyEntity company;
 
-    @OneToMany(mappedBy = "contractEntity")
-    private List<MonthlyBillEntity> monthlyBillEntities;
+    @ManyToOne
+    @JoinColumn(name = "floor_id")
+    private FloorEntity floor;
+
 }

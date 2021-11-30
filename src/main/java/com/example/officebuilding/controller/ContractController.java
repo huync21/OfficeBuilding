@@ -1,6 +1,8 @@
 package com.example.officebuilding.controller;
 
+import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.dtos.ContractDTO;
+import com.example.officebuilding.dtos.FloorDTO;
 import com.example.officebuilding.service.contract.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

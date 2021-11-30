@@ -15,14 +15,7 @@ public class CompanyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String type;
-
-    @OneToMany(mappedBy = "companyEntity")
-    private List<CompanyEmployeeEntity> companyEmployeeEntities;
-
-    @OneToMany(mappedBy = "companyEntity")
-    private List<ServiceContractEntity> serviceContractEntities;
-
-    @OneToMany(mappedBy = "companyEntity")
-    private List<ContractEntity> contractEntities;
+    private String taxCode;
+    private double authorizedCapital;
+    private String phoneNo;
 }

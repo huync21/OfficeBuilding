@@ -18,8 +18,12 @@ public class BuildingEmployeeEntity {
     private Date dateOfBirth;
     private String address;
     private String phoneNo;
-    private String level;
+    private String position;
     @ManyToOne
     @JoinColumn(name = "service_id",nullable = false )
-    private ServiceEntity serviceEntity;
+    private ServiceEntity service;
+
+    @ManyToOne
+    @JoinColumn(name = "salary_id",nullable = false )
+    private SalaryEntity salary;
 }

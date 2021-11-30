@@ -3,8 +3,7 @@ package com.example.officebuilding.dtos;
 import lombok.Data;
 
 @Data
-public class RentedAreaDTO {
+public class SalaryDTO {
     private int id;
-    private double groundArea;
-    private FloorDTO floor;
+    private double salaryLevel;
 }

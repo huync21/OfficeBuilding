@@ -8,7 +8,9 @@ import java.util.Date;
 public class ServiceContractDTO {
     private int id;
     private Date startDate;
-    private Date cancelDate;
+    private Date expireDate;
+    private int isCanceled;
+    private String description;
     private ServiceDTO service;
     private CompanyDTO company;
 }

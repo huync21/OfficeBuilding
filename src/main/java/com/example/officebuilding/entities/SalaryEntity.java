@@ -4,18 +4,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
+@Table(name = "salary")
 @Entity
-@Table(name = "floor")
 @NoArgsConstructor
-public class FloorEntity {
+public class SalaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private double pricePerM2;
-    private double groundArea;
-
+    private double salaryLevel;
 }

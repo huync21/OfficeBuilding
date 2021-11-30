@@ -16,9 +16,5 @@ public class ServiceEntity {
     private int id;
     private String name;
     private String type;
-    @OneToMany(mappedBy = "serviceEntity")
-    private List<BuildingEmployeeEntity> buildingEmployeeEntities;
-
-    @OneToMany(mappedBy = "serviceEntity")
-    private List<ServiceContractEntity> serviceContractEntities;
+    private double price;
 }

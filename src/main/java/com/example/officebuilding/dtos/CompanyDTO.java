@@ -6,5 +6,7 @@ import lombok.Data;
 public class CompanyDTO {
     private int id;
     private String name;
-    private String type;
+    private String taxCode;
+    private double authorizedCapital;
+    private String phoneNo;
 }

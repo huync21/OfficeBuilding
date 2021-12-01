@@ -50,4 +50,11 @@ public class CompanyEmployeeController {
             return new ResponseEntity<>(companyEmployeeDTO, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/companyId={id}")
+    public ResponseEntity<List<CompanyEmployeeDTO>> findAllEmployeeOfCompany(@PathVariable Integer id) {
+//        return new ResponseEntity<>(companyEmployeeService.findAllEmployeeOfCompany(id), HttpStatus.OK);
+        System.out.println(id);
+        return null;
+    }
 }

@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ICompanyEmployeeRepository extends JpaRepository<CompanyEmployeeEntity, Integer> {
-//    @Query("select * from company_employee where company_id=:id")
-//    List<CompanyEmployeeEntity> findAllEmployeeOfCompany(@Param("id") Integer id);
+    @Query(value = "select * from company_employee where company_id=:id", nativeQuery = true)
+    List<CompanyEmployeeEntity> findAllEmployeeOfCompany(@Param("id") Integer id);
 }

@@ -53,8 +53,6 @@ public class CompanyEmployeeController {
 
     @GetMapping("/companyId={id}")
     public ResponseEntity<List<CompanyEmployeeDTO>> findAllEmployeeOfCompany(@PathVariable Integer id) {
-//        return new ResponseEntity<>(companyEmployeeService.findAllEmployeeOfCompany(id), HttpStatus.OK);
-        System.out.println(id);
-        return null;
+        return new ResponseEntity<>(companyEmployeeService.findAllEmployeeOfCompany(id), HttpStatus.OK);
     }
 }

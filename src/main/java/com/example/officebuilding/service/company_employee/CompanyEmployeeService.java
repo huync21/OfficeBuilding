@@ -58,14 +58,15 @@ public class CompanyEmployeeService implements ICompanyEmployeeService{
         companyEmployeeRepository.deleteById(id);
     }
 
-//    public List<CompanyEmployeeDTO> findAllEmployeeOfCompany(Integer id) {
-//        // Lấy list entities từ db lên
-//        List<CompanyEmployeeEntity> companyEmployeeEntities = companyEmployeeRepository.findAllEmployeeOfCompany(id);
-//
-//        // Đổi list entities đó về dto rồi trả về
-//        List<CompanyEmployeeDTO> companyEmployeeDTOs = companyEmployeeEntities.stream()
-//                .map(companyEmployeeEntity -> modelMapper.map(companyEmployeeEntity, CompanyEmployeeDTO.class))
-//                .collect(Collectors.toList());
-//        return companyEmployeeDTOs;
-//    }
+    @Override
+    public List<CompanyEmployeeDTO> findAllEmployeeOfCompany(Integer id) {
+        // Lấy list entities từ db lên
+        List<CompanyEmployeeEntity> companyEmployeeEntities = companyEmployeeRepository.findAllEmployeeOfCompany(id);
+
+        // Đổi list entities đó về dto rồi trả về
+        List<CompanyEmployeeDTO> companyEmployeeDTOs = companyEmployeeEntities.stream()
+                .map(companyEmployeeEntity -> modelMapper.map(companyEmployeeEntity, CompanyEmployeeDTO.class))
+                .collect(Collectors.toList());
+        return companyEmployeeDTOs;
+    }
 }

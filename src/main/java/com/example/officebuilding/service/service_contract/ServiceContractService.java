@@ -1,8 +1,6 @@
 package com.example.officebuilding.service.service_contract;
 
-import com.example.officebuilding.dtos.CompanyEmployeeDTO;
 import com.example.officebuilding.dtos.ServiceContractDTO;
-import com.example.officebuilding.entities.CompanyEmployeeEntity;
 import com.example.officebuilding.entities.ServiceContractEntity;
 import com.example.officebuilding.repository.IServiceContractRepository;
 import org.modelmapper.ModelMapper;
@@ -63,7 +61,7 @@ public class ServiceContractService implements IServiceContractService{
     @Override
     public List<ServiceContractDTO> findAllServiceContractOfCompany(Integer companyId) {
         // Lấy list entities từ db lên
-        List<ServiceContractEntity> serviceContractEntities = serviceContractRepository.findAllServiceContractOfCompany(companyId);
+        List<ServiceContractEntity> serviceContractEntities = serviceContractRepository.getServiceContractEntitiesByCompany_Id(companyId);
 
         // Đổi list entities đó về dto rồi trả về
         List<ServiceContractDTO> serviceContractDTOs = serviceContractEntities.stream()

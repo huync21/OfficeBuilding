@@ -1,8 +1,6 @@
 package com.example.officebuilding.controller;
 
 import com.example.officebuilding.dtos.CompanyEmployeeDTO;
-import com.example.officebuilding.entities.CompanyEmployeeEntity;
-import com.example.officebuilding.service.company_employee.ICompanyEmployeeService;
 import com.example.officebuilding.service.company_employee.ICompanyEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,4 +53,10 @@ public class CompanyEmployeeController {
     public ResponseEntity<List<CompanyEmployeeDTO>> findAllEmployeeOfCompany(@PathVariable Integer id) {
         return new ResponseEntity<>(companyEmployeeService.findAllEmployeeOfCompany(id), HttpStatus.OK);
     }
+
+    @GetMapping("/employeeCount/companyId={id}")
+    public ResponseEntity<Integer> countEmployees(@PathVariable Integer id) {
+        return new ResponseEntity<>(companyEmployeeService.countCompanyEmployeesByCompanyID(id), HttpStatus.OK);
+    }
+
 }

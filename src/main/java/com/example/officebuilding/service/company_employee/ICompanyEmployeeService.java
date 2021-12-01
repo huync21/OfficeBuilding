@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ICompanyEmployeeService extends IGeneralService<CompanyEmployeeDTO> {
     public List<CompanyEmployeeDTO> findAllEmployeeOfCompany(Integer id);
+    public int countCompanyEmployeesByCompanyID(Integer companyId);
 }

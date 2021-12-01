@@ -3,9 +3,9 @@ package com.example.officebuilding.dtos;
 import lombok.Data;
 
 @Data
-public class MonthlyServiceBillDTO {
+public class MonthlySalary {
     private int id;
-    private double totalAmount;
-    private ServiceContractDTO serviceContract;
+    private double salary;
     private MonthDTO month;
+    private BuildingEmployeeDTO buildingEmployee;
 }

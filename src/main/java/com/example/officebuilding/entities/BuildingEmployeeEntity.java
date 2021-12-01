@@ -2,6 +2,8 @@ package com.example.officebuilding.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,10 +22,7 @@ public class BuildingEmployeeEntity {
     private String phoneNo;
     private String position;
     @ManyToOne
-    @JoinColumn(name = "service_id",nullable = false )
-    private ServiceEntity service;
-
-    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "salary_id",nullable = false )
     private SalaryEntity salary;
 }

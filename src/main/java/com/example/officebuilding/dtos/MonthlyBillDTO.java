@@ -5,8 +5,7 @@ import lombok.Data;
 @Data
 public class MonthlyBillDTO {
     private int id;
-    private int month;
-    private int year;
     private double totalAmount;
     private ContractDTO contract;
+    private MonthDTO month;
 }

@@ -2,11 +2,12 @@ package com.example.officebuilding.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-
 import java.util.Date;
-import java.util.List;
+
 
 @Data
 @Entity
@@ -22,11 +23,13 @@ public class ContractEntity {
     private String description;
     private int isCanceled;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "company_id")
     private CompanyEntity company;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "floor_id")
     private FloorEntity floor;
 

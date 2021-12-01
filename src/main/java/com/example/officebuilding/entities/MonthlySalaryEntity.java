@@ -8,16 +8,22 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Data
-@Table(name = "salary")
 @Entity
+@Table(name = "monthly_salary")
 @NoArgsConstructor
-public class SalaryEntity {
+public class MonthlySalaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int salaryLevel;
+    private double salary;
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "service_id", nullable = false)
-    private ServiceEntity service;
+    @JoinColumn(name = "building_employee_id",nullable = false)
+    private BuildingEmployeeEntity buildingEmployee;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "month_id",nullable = false)
+    private MonthEntity month;
 }

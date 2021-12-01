@@ -42,7 +42,7 @@ public class CompanyEmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CompanyEmployeeDTO> deleteCategory(@PathVariable Integer id) {
+    public ResponseEntity<CompanyEmployeeDTO> deleteCompanyEmployee(@PathVariable Integer id) {
         // Lấy thử đối tượng có id đó ra xem tồn tại chưa để xóa, ko thì trả về status not found
         Optional<CompanyEmployeeDTO> companyEmployeeDTOOptional = companyEmployeeService.findById(id);
         return companyEmployeeDTOOptional.map(companyEmployeeDTO -> {

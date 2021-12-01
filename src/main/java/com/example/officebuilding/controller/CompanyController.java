@@ -40,7 +40,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CompanyDTO> deleteCategory(@PathVariable Integer id) {
+    public ResponseEntity<CompanyDTO> deleteCompany(@PathVariable Integer id) {
         // Lấy thử đối tượng có id đó ra xem tồn tại chưa để xóa, ko thì trả về status not found
         Optional<CompanyDTO> companyDTOOptional = companyService.findById(id);
         return companyDTOOptional.map(companyDTO -> {

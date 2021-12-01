@@ -2,9 +2,8 @@ package com.example.officebuilding.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import java.util.List;
+
 
 @Data
 @Table(name = "company")

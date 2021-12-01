@@ -42,7 +42,7 @@ public class ContractController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ContractDTO> deleteCategory(@PathVariable Integer id) {
+    public ResponseEntity<ContractDTO> deleteContract(@PathVariable Integer id) {
         // Lấy thử đối tượng có id đó ra xem tồn tại chưa để xóa, ko thì trả về status not found
         Optional<ContractDTO> contractDTOOptional = contractService.findById(id);
         return contractDTOOptional.map(contractDTO -> {

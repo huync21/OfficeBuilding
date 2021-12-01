@@ -2,6 +2,8 @@ package com.example.officebuilding.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,7 +29,9 @@ public class CompanyEmployeeEntity {
 
     @Column(name = "phoneNo")
     private String phoneNo;
+
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity company;
 }

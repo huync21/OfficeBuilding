@@ -41,7 +41,7 @@ public class FloorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<FloorDTO> deleteCategory(@PathVariable Integer id) {
+    public ResponseEntity<FloorDTO> deleteFloor(@PathVariable Integer id) {
         // Lấy thử đối tượng có id đó ra xem tồn tại chưa để xóa, ko thì trả về status not found
         Optional<FloorDTO> floorDTOOptional = floorService.findById(id);
         return floorDTOOptional.map(floorDTO -> {

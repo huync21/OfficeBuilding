@@ -2,6 +2,8 @@ package com.example.officebuilding.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -13,11 +15,14 @@ public class MonthlyBillEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int month;
-    private int year;
     private double totalAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "contract_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "contract_id", nullable = false)
     private ContractEntity contract;
+
+    @ManyToOne
+    @JoinColumn(name = "month_id",nullable = false)
+    private MonthEntity month;
 }

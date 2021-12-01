@@ -1,18 +1,16 @@
 package com.example.officebuilding.entities;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "floor")
-@NoArgsConstructor
-public class FloorEntity {
+@Table(name = "month")
+public class MonthEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private double pricePerM2;
-    private double groundArea;
-
+    private int month;
+    private int year;
 }

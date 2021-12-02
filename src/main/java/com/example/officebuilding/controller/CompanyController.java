@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "/api/companies", produces = "application/json")
+@RequestMapping(value = "/api/company", produces = "application/json")
 public class CompanyController {
     @Autowired
     private ICompanyService companyService;

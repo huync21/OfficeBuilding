@@ -1,5 +1,6 @@
 package com.example.officebuilding.controller;
 
+import com.example.officebuilding.dao.CompanyEmployeeDAO;
 import com.example.officebuilding.dtos.CompanyEmployeeDTO;
 import com.example.officebuilding.service.company_employee.ICompanyEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import java.util.Optional;
 public class CompanyEmployeeController {
     @Autowired
     private ICompanyEmployeeService companyEmployeeService;
+
+    @Autowired
+    private CompanyEmployeeDAO companyEmployeeDAO;
 
     @PostMapping
     public ResponseEntity<CompanyEmployeeDTO> createNewCompanyEmployee(@RequestBody CompanyEmployeeDTO companyEmployeeDTO){
@@ -57,6 +61,11 @@ public class CompanyEmployeeController {
     @GetMapping("/employeeCount/companyId={id}")
     public ResponseEntity<Integer> countEmployees(@PathVariable Integer id) {
         return new ResponseEntity<>(companyEmployeeService.countCompanyEmployeesByCompanyID(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/companyId={id}")
+    public void insertEmployeeOfCompany(@PathVariable Integer id, @RequestBody CompanyEmployeeDTO companyEmployeeDTO){
+        companyEmployeeDAO.insertCompanyEmployeeByCompanyId(id,companyEmployeeDTO);
     }
 
 }

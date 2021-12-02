@@ -9,4 +9,5 @@ public class CompanyDTO {
     private String taxCode;
     private double authorizedCapital;
     private String phoneNo;
+    private int numberOfEmployee;
 }

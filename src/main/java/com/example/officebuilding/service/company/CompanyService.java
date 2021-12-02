@@ -2,6 +2,7 @@ package com.example.officebuilding.service.company;
 
 import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.entities.CompanyEntity;
+import com.example.officebuilding.repository.ICompanyEmployeeRepository;
 import com.example.officebuilding.repository.ICompanyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class CompanyService implements ICompanyService{
     @Autowired
     private ICompanyRepository companyRepository;
 
+    @Autowired
+    private ICompanyEmployeeRepository companyEmployeeRepository;
+
     @Override
     public List<CompanyDTO> findAll() {
         // Gọi repo lấy từ db
@@ -28,6 +32,9 @@ public class CompanyService implements ICompanyService{
         //Chuyển các entities thành các đối tượng Data Transfer Object(DTO) rồi trả về cho controller
         List<CompanyDTO> companyDTOS = companyEntities.stream().map(companyEntity -> modelMapper.map(companyEntity, CompanyDTO.class))
                 .collect(Collectors.toList());
+
+        // count số employee cho từng công ty
+        companyDTOS.forEach(companyDTO -> {companyDTO.setNumberOfEmployee(companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId()));});
         return companyDTOS;
     }
 

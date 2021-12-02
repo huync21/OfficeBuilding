@@ -98,7 +98,9 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
             double sumOfRentedArea = 0;
             for(ContractEntity contract: contractEntities) sumOfRentedArea+= contract.getRentedArea();
 
-            // Tính ra xem có lớn hơn 10 người trong công ty hay hơn 100m2 ko. Nếu có thì cứ thêm 5 người cộng 5%, thêm 10 m2 cộng 5% vào giá cơ bản
+            // Tính ra xem có lớn hơn 10 người trong công ty hay hơn 100m2 ko.
+            // Nếu có thì cứ thêm 5 người cộng 5%(tức là 1 người chênh thì thêm 1%)
+            // , thêm 10 m2 cộng 5%(tức là 1 m2 thì cộng 5/10=0.5%) vào giá cơ bản
             double addPercentage = 0;
             if(numberOfEmployee>10) addPercentage += numberOfEmployee-10;
             if(sumOfRentedArea>100) addPercentage += (sumOfRentedArea-100)*1/2;

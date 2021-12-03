@@ -42,15 +42,7 @@ public class OfficeBuildingApplication {
     @PostConstruct
     public void init() {
         List<User> users = userService.findAll();
-        List<Role> roleList = roleService.findAll();
-        if (roleList.isEmpty()) {
-            Role roleAdmin = new Role();
-            roleAdmin.setName("ROLE_ADMIN");
-            roleService.save(roleAdmin);
-            Role roleUser = new Role();
-            roleUser.setName("ROLE_USER");
-            roleService.save(roleUser);
-        }
+
         if (users.isEmpty()) {
             User admin = new User();
             Set<Role> roles = new HashSet<>();

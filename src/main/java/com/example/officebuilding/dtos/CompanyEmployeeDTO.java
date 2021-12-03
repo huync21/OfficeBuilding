@@ -10,4 +10,5 @@ public class CompanyEmployeeDTO {
     private String name;
     private Date dateOfBirth;
     private String phoneNo;
+    private CompanyDTO company;
 }

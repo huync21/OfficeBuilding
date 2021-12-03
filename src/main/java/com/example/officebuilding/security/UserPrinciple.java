@@ -22,9 +22,10 @@ public class UserPrinciple implements UserDetails {
 
     private Collection<? extends GrantedAuthority> roles;
 
-    public UserPrinciple(Integer id, String password,
+    public UserPrinciple(Integer id, String password, String userName,
                          Collection<? extends GrantedAuthority> roles) {
         this.id = id;
+        this.userName = userName;
         this.password = password;
         this.roles = roles;
     }
@@ -37,6 +38,7 @@ public class UserPrinciple implements UserDetails {
         return new UserPrinciple(
                 user.getId(),
                 user.getPassword(),
+                user.getUsername(),
                 authorities
         );
     }

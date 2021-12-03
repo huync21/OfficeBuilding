@@ -17,7 +17,6 @@ public class ServiceContractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date startDate;
-    private Date expireDate;
     private String description;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)

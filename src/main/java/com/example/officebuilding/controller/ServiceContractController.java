@@ -1,5 +1,7 @@
 package com.example.officebuilding.controller;
 
+import com.example.officebuilding.dao.ServiceContractDAO;
+import com.example.officebuilding.dtos.MessageDTO;
 import com.example.officebuilding.dtos.ServiceContractDTO;
 import com.example.officebuilding.service.service_contract.IServiceContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +55,17 @@ public class ServiceContractController {
     public ResponseEntity<List<ServiceContractDTO>> getAllServiceContractsByCompany(@PathVariable Integer id) {
         return new ResponseEntity<>(serviceContractService.findAllServiceContractOfCompany(id), HttpStatus.OK);
     }
+
+    @PostMapping("/companyId={companyId}&serviceId={serviceId}")
+    public ResponseEntity<MessageDTO> createNewServiceContract(@PathVariable Integer companyId,
+                                                                       @PathVariable Integer serviceId,
+                                                                       @RequestBody ServiceContractDTO serviceContractDTO){
+        Optional<ServiceContractDTO> savedServiceContract = serviceContractService.createServiceContract(companyId, serviceId, serviceContractDTO);
+
+        if(savedServiceContract.isPresent()){
+            return new ResponseEntity<>(new MessageDTO("Bạn đã đăng ký thành công dịch vụ cho công ty!"),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new MessageDTO("Công ty đã đăng ký dịch vụ này rồi!"),HttpStatus.EXPECTATION_FAILED);
+    }
+
 }

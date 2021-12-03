@@ -7,10 +7,9 @@ import java.util.Date;
 @Data
 public class ServiceContractDTO {
     private int id;
-    private Date startDate;
-    private Date expireDate;
-    private int isCanceled;
+    private String startDate;
     private String description;
+    private double currentPrice;
     private ServiceDTO service;
     private CompanyDTO company;
 }

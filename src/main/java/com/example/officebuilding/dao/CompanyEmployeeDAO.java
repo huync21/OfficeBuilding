@@ -3,9 +3,7 @@ package com.example.officebuilding.dao;
 import com.example.officebuilding.dtos.CompanyEmployeeDTO;
 import com.example.officebuilding.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository

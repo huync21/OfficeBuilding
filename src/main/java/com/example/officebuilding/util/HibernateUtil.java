@@ -4,8 +4,7 @@ import java.util.Properties;
 
 
 import com.example.officebuilding.dtos.CompanyEmployeeDTO;
-import com.example.officebuilding.entities.CompanyEmployeeEntity;
-import com.example.officebuilding.entities.CompanyEntity;
+import com.example.officebuilding.entities.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -36,6 +35,16 @@ public class HibernateUtil {
 
                 configuration.addAnnotatedClass(CompanyEmployeeEntity.class);
                 configuration.addAnnotatedClass(CompanyEntity.class);
+                configuration.addAnnotatedClass(BuildingEmployeeEntity.class);
+                configuration.addAnnotatedClass(ContractEntity.class);
+                configuration.addAnnotatedClass(FloorEntity.class);
+                configuration.addAnnotatedClass(MonthEntity.class);
+                configuration.addAnnotatedClass(MonthlyBillEntity.class);
+                configuration.addAnnotatedClass(MonthlySalaryEntity.class);
+                configuration.addAnnotatedClass(MonthlyServiceBillEntity.class);
+                configuration.addAnnotatedClass(SalaryEntity.class);
+                configuration.addAnnotatedClass(ServiceContractEntity.class);
+                configuration.addAnnotatedClass(ServiceEntity.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

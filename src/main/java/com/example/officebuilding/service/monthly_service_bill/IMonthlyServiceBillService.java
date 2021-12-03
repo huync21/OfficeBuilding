@@ -7,4 +7,5 @@ import com.example.officebuilding.service.IGeneralService;
 
 public interface IMonthlyServiceBillService extends IGeneralService<MonthlyServiceBillDTO> {
     public double calculateMoney(String startDate, String endDate, ServiceContractDTO serviceContractDTO);
+    public double calculateMoney( ServiceContractDTO serviceContractDTO);
 }

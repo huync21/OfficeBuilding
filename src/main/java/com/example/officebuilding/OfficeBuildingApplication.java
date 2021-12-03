@@ -1,9 +1,13 @@
 package com.example.officebuilding;
 
+import com.example.officebuilding.entities.ServiceEntity;
+import com.example.officebuilding.repository.IServiceContractRepository;
+import com.example.officebuilding.repository.IServiceRepository;
 import com.example.officebuilding.security.entities.Role;
 import com.example.officebuilding.security.entities.User;
 import com.example.officebuilding.security.service.IRoleService;
 import com.example.officebuilding.security.service.IUserService;
+import com.example.officebuilding.service.contract.IContractService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +27,7 @@ public class OfficeBuildingApplication {
     @Autowired
     private IUserService userService;
     @Autowired
-    private IRoleService roleService;
+    private IServiceRepository serviceRepository;
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
@@ -54,6 +58,22 @@ public class OfficeBuildingApplication {
             admin.setPassword("123");
             admin.setRoles(roles);
             userService.save(admin);
+        }
+
+        List<ServiceEntity> requiredServices = serviceRepository.findServiceEntitiesByIsRequired(1);
+        if(requiredServices.isEmpty()){
+            ServiceEntity serviceEntity = new ServiceEntity();
+            serviceEntity.setName("Vệ sinh");
+            serviceEntity.setIsRequired(1);
+            serviceEntity.setPrice(150000);
+            serviceEntity.setType("Dịch vụ bắt buộc");
+            serviceRepository.save(serviceEntity);
+            ServiceEntity serviceEntity1 = new ServiceEntity();
+            serviceEntity1.setName("Bảo vệ");
+            serviceEntity1.setIsRequired(1);
+            serviceEntity1.setPrice(200000);
+            serviceEntity1.setType("Dịch vụ bắt buộc");
+            serviceRepository.save(serviceEntity1);
         }
     }
 

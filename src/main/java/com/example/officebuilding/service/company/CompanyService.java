@@ -76,7 +76,7 @@ public class CompanyService implements ICompanyService{
         // Lấy được ra list đó rồi thì đăng ký những service đó cho tòa nhà
         requiredServices.forEach(requiredService->{
             ServiceContractDTO serviceContractDTO = new ServiceContractDTO();
-            serviceContractDTO.setStartDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            serviceContractDTO.setStartDate(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
             serviceContractDTO.setDescription("Dịch vụ bắt buộc");
             serviceContractDAO.createServiceContract(companyEntity.getId(),requiredService.getId(),serviceContractDTO);
         });

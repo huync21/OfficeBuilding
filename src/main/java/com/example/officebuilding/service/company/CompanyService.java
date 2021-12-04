@@ -67,7 +67,7 @@ public class CompanyService implements ICompanyService{
 
         // Khi tạo công ty thì bắt buộc phải đăng ký những service bắt buộc có của tòa nhà
         // Đầu tiên phải tìm ra những service bắt buộc đó đã
-        List<ServiceEntity> requiredServices = serviceRepository.findServiceEntitiesByIsRequired(1);
+        List<ServiceEntity> requiredServices = serviceRepository.findServiceEntitiesByRequired(1);
         // Lấy được ra list đó rồi thì đăng ký những service đó cho tòa nhà
         requiredServices.forEach(requiredService->{
             ServiceContractDTO serviceContractDTO = new ServiceContractDTO();

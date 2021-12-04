@@ -8,5 +8,5 @@ public class ServiceDTO {
     private String name;
     private String type;
     private double price;
-    private int isRequired;
+    private int required;
 }

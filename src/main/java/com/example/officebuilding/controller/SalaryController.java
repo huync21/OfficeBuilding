@@ -48,4 +48,9 @@ public class SalaryController {
             return new ResponseEntity<>(salaryDTO, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/companyId={companyId}")
+    public ResponseEntity<List<SalaryDTO>> findSalariesByCompanyId(@PathVariable Integer companyId){
+        return new ResponseEntity<>(salaryService.findSalariesByServiceId(companyId),HttpStatus.OK);
+    }
 }

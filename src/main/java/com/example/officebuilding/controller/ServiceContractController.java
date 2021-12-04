@@ -56,9 +56,9 @@ public class ServiceContractController {
         return new ResponseEntity<>(serviceContractService.findAllServiceContractOfCompany(id), HttpStatus.OK);
     }
 
-    @PostMapping("/companyId={companyId}&serviceId={serviceId}")
-    public ResponseEntity<MessageDTO> createNewServiceContract(@PathVariable Integer companyId,
-                                                                       @PathVariable Integer serviceId,
+    @PostMapping("/service-registration")
+    public ResponseEntity<MessageDTO> createNewServiceContract(@RequestParam Integer companyId,
+                                                                       @RequestParam Integer serviceId,
                                                                        @RequestBody ServiceContractDTO serviceContractDTO){
         Optional<ServiceContractDTO> savedServiceContract = serviceContractService.createServiceContract(companyId, serviceId, serviceContractDTO);
 

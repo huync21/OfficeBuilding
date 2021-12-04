@@ -57,17 +57,17 @@ public class OfficeBuildingApplication {
             userService.save(admin);
         }
 
-        List<ServiceEntity> requiredServices = serviceRepository.findServiceEntitiesByIsRequired(1);
+        List<ServiceEntity> requiredServices = serviceRepository.findServiceEntitiesByRequired(1);
         if(requiredServices.isEmpty()){
             ServiceEntity serviceEntity = new ServiceEntity();
             serviceEntity.setName("Vệ sinh");
-            serviceEntity.setIsRequired(1);
+            serviceEntity.setRequired(1);
             serviceEntity.setPrice(150000);
             serviceEntity.setType("Dịch vụ bắt buộc");
             serviceRepository.save(serviceEntity);
             ServiceEntity serviceEntity1 = new ServiceEntity();
             serviceEntity1.setName("Bảo vệ");
-            serviceEntity1.setIsRequired(1);
+            serviceEntity1.setRequired(1);
             serviceEntity1.setPrice(200000);
             serviceEntity1.setType("Dịch vụ bắt buộc");
             serviceRepository.save(serviceEntity1);

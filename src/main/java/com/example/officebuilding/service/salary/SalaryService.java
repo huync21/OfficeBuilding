@@ -57,4 +57,14 @@ public class SalaryService implements ISalaryService{
     public void remove(Integer id) {
         salaryRepository.deleteById(id);
     }
+
+    @Override
+    public List<SalaryDTO> findSalariesByServiceId(Integer serviceId) {
+        List<SalaryEntity> salaryEntityList= salaryRepository.findSalaryEntitiesByService_Id(serviceId);
+
+        //Đổi sang dto
+        return salaryEntityList.stream()
+                .map(salaryEntity -> modelMapper.map(salaryEntity,SalaryDTO.class))
+                .collect(Collectors.toList());
+    }
 }

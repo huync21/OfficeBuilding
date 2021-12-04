@@ -7,5 +7,6 @@ import com.example.officebuilding.service.IGeneralService;
 import java.util.List;
 
 public interface IServiceService extends IGeneralService<ServiceDTO> {
-    public List<ServiceDTO> findAllUnregisterdServices(Integer companyId);
+     List<ServiceDTO> findAllUnregisterdServices(Integer companyId);
+     List<ServiceDTO> findAllUnregisterdServicesByServiceName(Integer companyId, String serviceName);
 }

@@ -51,7 +51,19 @@ public class ServiceController {
 
     // Lấy ra những dịch vụ mà công ty chưa đăng ký để đăng ký
     @GetMapping("/unregisterd/companyId={companyId}")
-    public List<ServiceDTO> findAllUnregisteredServiceOfCompany(@PathVariable Integer companyId){
-        return serviceService.findAllUnregisterdServices(companyId);
+    public ResponseEntity<List<ServiceDTO>> findAllUnregisteredServiceOfCompany(@RequestParam Integer companyId){
+        List<ServiceDTO> allUnregisterdServices = serviceService.findAllUnregisterdServices(companyId);
+        return new ResponseEntity<>(allUnregisterdServices,HttpStatus.OK);
+    }
+
+    // Lấy ra những dịch vụ mà công ty chưa đăng ký theo tên dịch vụ
+    @GetMapping("/unregisterd")
+    public ResponseEntity<List<ServiceDTO>> findAllUnregisteredServiceByCompanyAndServiceName(@RequestParam Integer companyId,@RequestParam String serviceName){
+        List<ServiceDTO> allUnregisterdServices = serviceService.findAllUnregisterdServicesByServiceName(companyId,serviceName);
+        if(allUnregisterdServices.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(allUnregisterdServices,HttpStatus.OK);
+
     }
 }

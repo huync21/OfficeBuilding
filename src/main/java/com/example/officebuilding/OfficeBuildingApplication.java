@@ -1,13 +1,10 @@
 package com.example.officebuilding;
 
 import com.example.officebuilding.entities.ServiceEntity;
-import com.example.officebuilding.repository.IServiceContractRepository;
 import com.example.officebuilding.repository.IServiceRepository;
 import com.example.officebuilding.security.entities.Role;
 import com.example.officebuilding.security.entities.User;
-import com.example.officebuilding.security.service.IRoleService;
 import com.example.officebuilding.security.service.IUserService;
-import com.example.officebuilding.service.contract.IContractService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

@@ -1,6 +1,7 @@
 package com.example.officebuilding.controller;
 
 import com.example.officebuilding.dtos.CompanyDTO;
+import com.example.officebuilding.dtos.MonthlyFeeOfCompanyDTO;
 import com.example.officebuilding.service.company.ICompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,10 @@ public class CompanyController {
             companyService.remove(id);
             return new ResponseEntity<>(companyDTO, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/monthly_total_fee/monthId={monthId}")
+    public ResponseEntity<List<MonthlyFeeOfCompanyDTO>> getMonthlyFeeOfAllCompanies(@PathVariable Integer monthId){
+        return new ResponseEntity<>(companyService.getMonthlyFeeOfCompany(monthId),HttpStatus.OK);
     }
 }

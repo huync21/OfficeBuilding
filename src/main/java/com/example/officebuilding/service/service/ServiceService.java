@@ -1,5 +1,6 @@
 package com.example.officebuilding.service.service;
 
+import com.example.officebuilding.dao.ServiceDAO;
 import com.example.officebuilding.dtos.ServiceDTO;
 import com.example.officebuilding.entities.ServiceEntity;
 import com.example.officebuilding.repository.IServiceRepository;
@@ -18,6 +19,9 @@ public class ServiceService implements IServiceService{
 
     @Autowired
     private IServiceRepository serviceRepository;
+
+    @Autowired
+    private ServiceDAO serviceDAO;
 
     @Override
     public List<ServiceDTO> findAll() {
@@ -56,5 +60,10 @@ public class ServiceService implements IServiceService{
     @Override
     public void remove(Integer id) {
         serviceRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ServiceDTO> findAllUnregisterdServices(Integer companyId) {
+        return serviceDAO.findAllUnregisterdServices(companyId);
     }
 }

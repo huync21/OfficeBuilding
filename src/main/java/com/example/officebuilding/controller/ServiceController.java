@@ -48,4 +48,10 @@ public class ServiceController {
             return new ResponseEntity<>(serviceDTO, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    // Lấy ra những dịch vụ mà công ty chưa đăng ký để đăng ký
+    @GetMapping("/unregisterd/companyId={companyId}")
+    public List<ServiceDTO> findAllUnregisteredServiceOfCompany(@PathVariable Integer companyId){
+        return serviceService.findAllUnregisterdServices(companyId);
+    }
 }

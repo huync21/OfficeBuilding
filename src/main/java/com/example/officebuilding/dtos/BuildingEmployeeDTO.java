@@ -8,7 +8,7 @@ import java.util.Date;
 public class BuildingEmployeeDTO {
     private int id;
     private String name;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String address;
     private String phoneNo;
     private SalaryDTO salary;

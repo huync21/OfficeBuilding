@@ -15,6 +15,7 @@ public class SalaryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private double salary;
     private int salaryLevel;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)

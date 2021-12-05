@@ -58,4 +58,10 @@ public class ContractService implements IContractService{
     public void remove(Integer id) {
         contractRepository.deleteById(id);
     }
+
+    public void createNewContract(Integer floorId,Integer companyId){
+        //Kieem tra xem floor
+
+        //if dao.create
+    }
 }

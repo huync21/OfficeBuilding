@@ -6,5 +6,7 @@ import com.example.officebuilding.service.IGeneralService;
 import java.util.List;
 
 public interface ISalaryService extends IGeneralService<SalaryDTO> {
-    public List<SalaryDTO> findSalariesByServiceId(Integer serviceId);
+    List<SalaryDTO> findSalariesByServiceId(Integer serviceId);
+
+    void createNewSalaryByServiceId(Integer serviceId,SalaryDTO salaryDTO);
 }

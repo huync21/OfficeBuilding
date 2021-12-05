@@ -1,5 +1,6 @@
 package com.example.officebuilding.controller;
 
+import com.example.officebuilding.dao.SalaryDAO;
 import com.example.officebuilding.dtos.SalaryDTO;
 import com.example.officebuilding.service.salary.ISalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class SalaryController {
     @Autowired
     private ISalaryService salaryService;
+
 
     @PostMapping
     public ResponseEntity<SalaryDTO> createNewSalary(@RequestBody SalaryDTO salaryDTO){
@@ -49,8 +51,16 @@ public class SalaryController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/companyId={companyId}")
-    public ResponseEntity<List<SalaryDTO>> findSalariesByCompanyId(@PathVariable Integer companyId){
-        return new ResponseEntity<>(salaryService.findSalariesByServiceId(companyId),HttpStatus.OK);
+    @GetMapping("/serviceId={serviceId}")
+    public ResponseEntity<List<SalaryDTO>> findSalariesByServiceId(@PathVariable Integer serviceId){
+        return new ResponseEntity<>(salaryService.findSalariesByServiceId(serviceId),HttpStatus.OK);
     }
+
+    @PostMapping("/create/serviceId={serviceId}")
+    public ResponseEntity<?> createNewSalaryByServiceId(@PathVariable Integer serviceId, @RequestBody SalaryDTO salaryDTO){
+        salaryService.createNewSalaryByServiceId(serviceId,salaryDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }

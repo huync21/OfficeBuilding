@@ -1,5 +1,6 @@
 package com.example.officebuilding.service.salary;
 
+import com.example.officebuilding.dao.SalaryDAO;
 import com.example.officebuilding.dtos.SalaryDTO;
 import com.example.officebuilding.entities.SalaryEntity;
 import com.example.officebuilding.repository.ISalaryRepository;
@@ -18,6 +19,9 @@ public class SalaryService implements ISalaryService{
 
     @Autowired
     private ISalaryRepository salaryRepository;
+
+    @Autowired
+    private SalaryDAO salaryDAO;
 
     @Override
     public List<SalaryDTO> findAll() {
@@ -66,5 +70,10 @@ public class SalaryService implements ISalaryService{
         return salaryEntityList.stream()
                 .map(salaryEntity -> modelMapper.map(salaryEntity,SalaryDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void createNewSalaryByServiceId(Integer serviceId, SalaryDTO salaryDTO) {
+        salaryDAO.createSalaryForService(serviceId,salaryDTO);
     }
 }

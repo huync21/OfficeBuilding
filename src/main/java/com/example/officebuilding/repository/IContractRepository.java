@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IContractRepository extends JpaRepository<ContractEntity, Integer> {
-    public List<ContractEntity> getContractEntitiesByCompany_Id(Integer companyId);
+    List<ContractEntity> getContractEntitiesByCompany_Id(Integer companyId);
 }

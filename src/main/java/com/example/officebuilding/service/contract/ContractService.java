@@ -59,9 +59,13 @@ public class ContractService implements IContractService{
         contractRepository.deleteById(id);
     }
 
-    public void createNewContract(Integer floorId,Integer companyId){
-        //Kieem tra xem floor
-
-        //if dao.create
+    @Override
+    public double getSumOfRentedArea(Integer companyId) {
+        double result = 0;
+        List<ContractEntity> list = contractRepository.getContractEntitiesByCompany_Id(companyId);
+        for (ContractEntity contract: list){
+            result+=contract.getRentedArea();
+        }
+        return result;
     }
 }

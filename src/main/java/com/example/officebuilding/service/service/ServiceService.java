@@ -71,4 +71,6 @@ public class ServiceService implements IServiceService{
     public List<ServiceDTO> findAllUnregisterdServicesByServiceName(Integer companyId, String serviceName) {
         return serviceDAO.findAllUnregisterdServices(companyId,serviceName);
     }
+
+
 }

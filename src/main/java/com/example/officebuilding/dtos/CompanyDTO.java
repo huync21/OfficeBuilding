@@ -10,4 +10,5 @@ public class CompanyDTO {
     private double authorizedCapital;
     private String phoneNo;
     private int numberOfEmployee;
+    private double sumOfRentedArea;
 }

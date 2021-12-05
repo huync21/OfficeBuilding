@@ -6,6 +6,7 @@ import com.example.officebuilding.dtos.MonthlyFeeOfCompanyDTO;
 import com.example.officebuilding.dtos.ServiceContractDTO;
 import com.example.officebuilding.entities.*;
 import com.example.officebuilding.repository.*;
+import com.example.officebuilding.service.contract.IContractService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,12 @@ public class CompanyService implements ICompanyService{
     private IServiceContractRepository serviceContractRepository;
     @Autowired
     private IMonthlyServiceBillRepository monthlyServiceBillRepository;
-    @Autowired IContractRepository contractRepository;
+    @Autowired
+    private IContractRepository contractRepository;
     @Autowired
     private IMonthlyBillRepository monthlyBillRepository;
+    @Autowired
+    private IContractService contractService;
 
     @Override
     public List<CompanyDTO> findAll() {
@@ -43,8 +47,12 @@ public class CompanyService implements ICompanyService{
         List<CompanyDTO> companyDTOS = companyEntities.stream().map(companyEntity -> modelMapper.map(companyEntity, CompanyDTO.class))
                 .collect(Collectors.toList());
 
-        // count số employee cho từng công ty
-        companyDTOS.forEach(companyDTO -> companyDTO.setNumberOfEmployee(companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId())));
+        // count số employee cho từng công ty và tổng diện tích mặt bằng công ty đó thuê
+        companyDTOS.forEach(companyDTO -> {
+            companyDTO.setNumberOfEmployee(companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId()));
+            companyDTO.setSumOfRentedArea(contractService.getSumOfRentedArea(companyDTO.getId()));
+        });
+
         return companyDTOS;
     }
 

@@ -78,7 +78,7 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
             double basicPricePerMonth = serviceContractDTO.getService().getPrice();
 
             // Đếm số ngày sử dụng trong tháng
-            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date start = sdf.parse(startDate);
             Date end = sdf.parse(endDate);
             int numberOfDaysUsingService = end.getDate() - start.getDate();

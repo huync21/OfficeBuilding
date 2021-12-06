@@ -8,5 +8,6 @@ import com.example.officebuilding.service.IGeneralService;
 import java.util.List;
 
 public interface ICompanyService extends IGeneralService<CompanyDTO> {
-    public List<MonthlyFeeOfCompanyDTO> getMonthlyFeeOfCompany(Integer monthId);
+    List<MonthlyFeeOfCompanyDTO> getMonthlyFeeOfCompany(Integer monthId);
+    CompanyDTO update(CompanyDTO companyDTO);
 }

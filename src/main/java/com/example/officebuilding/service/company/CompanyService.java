@@ -88,6 +88,17 @@ public class CompanyService implements ICompanyService{
         return modelMapper.map(updatedCompanyEntity,CompanyDTO.class);
     }
 
+    @Override
+    public CompanyDTO update(CompanyDTO companyDTO) {
+        // Chuyển DTO thành entity
+        CompanyEntity companyEntity = modelMapper.map(companyDTO, CompanyEntity.class);
+
+        // Lưu xuống db và trả về đối tượng entity đã được cập nhật
+        CompanyEntity updatedCompanyEntity = companyRepository.save(companyEntity);
+
+        // Chuyển lại đối tượng entity đã được cập nhật sang DTO để trả về:
+        return modelMapper.map(updatedCompanyEntity,CompanyDTO.class);
+    }
 
     @Override
     public void remove(Integer id) {

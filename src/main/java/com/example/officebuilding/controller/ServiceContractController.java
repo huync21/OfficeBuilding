@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "/api/serviceContracts", produces = "application/json")
+@RequestMapping(value = "/api/service-registrations", produces = "application/json")
 public class ServiceContractController {
     @Autowired
     private IServiceContractService serviceContractService;
@@ -56,7 +56,7 @@ public class ServiceContractController {
         return new ResponseEntity<>(serviceContractService.findAllServiceContractOfCompany(id), HttpStatus.OK);
     }
 
-    @PostMapping("/service-registration")
+    @PostMapping("/register-new-service")
     public ResponseEntity<MessageDTO> createNewServiceContract(@RequestParam Integer companyId,
                                                                        @RequestParam Integer serviceId,
                                                                        @RequestBody ServiceContractDTO serviceContractDTO){

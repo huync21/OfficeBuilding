@@ -35,7 +35,7 @@ public class CompanyController {
 
         return companyDTOOptional.map(companyDTO1 -> {
             companyDTO.setId(companyDTO1.getId());
-            CompanyDTO updatedCompany = companyService.save(companyDTO);
+            CompanyDTO updatedCompany = companyService.update(companyDTO);
             return new ResponseEntity<>(updatedCompany,HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

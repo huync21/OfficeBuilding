@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -83,14 +85,34 @@ public class ServiceContractService implements IServiceContractService{
                 .collect(Collectors.toList());
 
         serviceContractDTOs.forEach(serviceContractDTO -> {
-            // Ràng buộc nâng cao của thầy: Lấy ra giá tiền tròn tháng hiện tại của các service contract đó với điều kiện diện tích mặt bằng và số người trong công ty
-            serviceContractDTO.setCurrentPrice(monthlyServiceBillService.calculateMoney(serviceContractDTO));
+            String dateWithoutTime = null;
+            try {
+            // Ràng buộc nâng cao của thầy: Lấy ra giá tiền phải trả hiện tại tháng này của các service contract đó với điều kiện diện tích mặt bằng và số người trong công ty
+            Date startUsingDate = new SimpleDateFormat("yyyy-MM-dd").parse(serviceContractDTO.getStartDate());
+            Date today = new Date();
+
+            // Ngày bắt đầu tính tiền và ngày kết thúc để tính tiền
+            Date startDate = null;
+            Date endDate = null;
+            // Nếu ngày bắt đầu và hôm nay trùng tháng thì ngày bắt đầu tính tiền sẽ băng ngày công ty bắt đầu dùng dịch vụ
+            if(startUsingDate.getMonth() == today.getMonth()
+            && startUsingDate.getYear() == today.getYear()){
+                startDate = startUsingDate; //
+                endDate = today;
+            }else{// nếu không thì ngày bắt đầu tính tiền sẽ băng ngày đầu tháng này
+                Calendar c = Calendar.getInstance();
+                c.set(Calendar.DAY_OF_MONTH, 1);
+                startDate = c.getTime();
+                endDate = today;
+            }
+
+            serviceContractDTO.setCurrentPrice(monthlyServiceBillService.calculateMoney(startDate,endDate,serviceContractDTO));
 
             // Format lại ngày cho đẹp để trả về cho client:
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat sdf1 = new SimpleDateFormat(("yyyy-MM-dd"));
-            String dateWithoutTime = null;
-            try {
+
+
                 dateWithoutTime = sdf.format(sdf1.parse(serviceContractDTO.getStartDate()));
             } catch (ParseException e) {
                 e.printStackTrace();

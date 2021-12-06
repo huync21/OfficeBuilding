@@ -4,8 +4,9 @@ import com.example.officebuilding.dtos.MonthlyServiceBillDTO;
 import com.example.officebuilding.dtos.ServiceContractDTO;
 import com.example.officebuilding.service.IGeneralService;
 
+import java.util.Date;
+
 
 public interface IMonthlyServiceBillService extends IGeneralService<MonthlyServiceBillDTO> {
-    public double calculateMoney(String startDate, String endDate, ServiceContractDTO serviceContractDTO);
-    public double calculateMoney( ServiceContractDTO serviceContractDTO);
+    double calculateMoney(Date startDate, Date endDate, ServiceContractDTO serviceContractDTO);
 }

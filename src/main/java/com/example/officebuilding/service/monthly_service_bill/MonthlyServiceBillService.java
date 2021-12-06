@@ -72,15 +72,15 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
     }
 
     @Override
-    public double calculateMoney(String startDate, String endDate, ServiceContractDTO serviceContractDTO) {
-        try {
+    public double calculateMoney(Date startDate, Date endDate, ServiceContractDTO serviceContractDTO) {
+
             //Lấy ra giá cơ bản của dịch vụ trong 1 tháng với những trường hợp dưới 100m2 mặt bằng và <10 người trong công ty:
             double basicPricePerMonth = serviceContractDTO.getService().getPrice();
 
             // Đếm số ngày sử dụng trong tháng
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Date start = sdf.parse(startDate);
-            Date end = sdf.parse(endDate);
+            Date start = startDate;
+            Date end = endDate;
             int numberOfDaysUsingService = end.getDate() - start.getDate();
 
             // Lấy ra số ngày của tháng đó
@@ -108,43 +108,10 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
 
             // Nhân với tỉ lệ số ngày sử dụng trên số ngày của tháng
             basicPricePerMonth = basicPricePerMonth*numberOfDaysUsingService/daysInMonth;
-
+            // Làm tròn
+            basicPricePerMonth = (double) Math.floor(basicPricePerMonth * 1000) / 1000;
             return basicPricePerMonth;
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return -1;
     }
 
-    @Override
-    public double calculateMoney(ServiceContractDTO serviceContractDTO) {
-        try {
-            //Lấy ra giá cơ bản của dịch vụ trong 1 tháng với những trường hợp dưới 100m2 mặt bằng và <10 người trong công ty:
-            double basicPricePerMonth = serviceContractDTO.getService().getPrice();
-
-            // Lấy ra company và đếm số nhân viên của công ty
-            CompanyDTO companyDTO = serviceContractDTO.getCompany();
-            int numberOfEmployee = companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId());
-
-            // Lấy ra các hợp đồng mặt bằng của công ty đó và đếm tổng diện tích mặt bằng công ty đó thuê
-            List<ContractEntity> contractEntities = contractRepository.getContractEntitiesByCompany_Id(companyDTO.getId());
-            double sumOfRentedArea = 0;
-            for(ContractEntity contract: contractEntities) sumOfRentedArea+= contract.getRentedArea();
-
-            // Tính ra xem có lớn hơn 10 người trong công ty hay hơn 100m2 ko.
-            // Nếu có thì cứ thêm 5 người cộng 5%(tức là 1 người chênh thì thêm 1%)
-            // , thêm 10 m2 cộng 5%(tức là 1 m2 thì cộng 5/10=0.5%) vào giá cơ bản
-            double addPercentage = 0;
-            if(numberOfEmployee>10) addPercentage += numberOfEmployee-10;
-            if(sumOfRentedArea>100) addPercentage += (sumOfRentedArea-100)*1/2;
-            basicPricePerMonth *= (100+addPercentage)/100;
-
-            return basicPricePerMonth;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
 }

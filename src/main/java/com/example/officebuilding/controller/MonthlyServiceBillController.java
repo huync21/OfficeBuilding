@@ -50,8 +50,4 @@ public class MonthlyServiceBillController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/money/startDate={start}&endDate={end}")
-    public ResponseEntity<Double> calculateMoneyOfServiceBill(@PathVariable String start, @PathVariable String end, @RequestBody ServiceContractDTO serviceContractDTO){
-        return new ResponseEntity<>(monthlyServiceBillService.calculateMoney(start,end,serviceContractDTO),HttpStatus.OK);
-    }
 }

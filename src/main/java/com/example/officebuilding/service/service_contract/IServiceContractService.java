@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IServiceContractService extends IGeneralService<ServiceContractDTO> {
-    public List<ServiceContractDTO> findAllServiceContractOfCompany(Integer companyId);
-    public Optional<ServiceContractDTO> createServiceContract(Integer companyId, Integer serviceId, ServiceContractDTO serviceContractDTO);
+    List<ServiceContractDTO> findAllServiceContractOfCompany(Integer companyId);
+    Optional<ServiceContractDTO> createServiceContract(Integer companyId, Integer serviceId, ServiceContractDTO serviceContractDTO);
 }

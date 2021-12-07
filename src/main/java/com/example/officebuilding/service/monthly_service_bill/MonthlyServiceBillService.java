@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.Date;
@@ -38,7 +37,10 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
         List<MonthlyServiceBillEntity> monthlyServiceBillEntities = monthlyServiceBillRepository.findAll();
 
         //Chuyển các entities thành các đối tượng Data Transfer Object(DTO) rồi trả về cho controller
-        List<MonthlyServiceBillDTO> monthlyServiceBillDTOS = monthlyServiceBillEntities.stream().map(monthlyServiceBillEntity -> modelMapper.map(monthlyServiceBillEntity, MonthlyServiceBillDTO.class))
+        List<MonthlyServiceBillDTO> monthlyServiceBillDTOS = monthlyServiceBillEntities
+                .stream()
+                .map(monthlyServiceBillEntity ->
+                        modelMapper.map(monthlyServiceBillEntity, MonthlyServiceBillDTO.class))
                 .collect(Collectors.toList());
         return monthlyServiceBillDTOS;
     }
@@ -46,20 +48,26 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
     @Override
     public Optional<MonthlyServiceBillDTO> findById(Integer id) {
         // Gọi repo lấy dữ liệu entity từ db
-        Optional<MonthlyServiceBillEntity> monthlyServiceBillEntity = monthlyServiceBillRepository.findById(id);
+        Optional<MonthlyServiceBillEntity> monthlyServiceBillEntity =
+                monthlyServiceBillRepository.findById(id);
 
         //Chuyển entity thành DTO rồi trả về cho controller:
-        Optional<MonthlyServiceBillDTO> monthlyServiceBillDTOOptional = monthlyServiceBillEntity.map(monthlyServiceBillEntity1 -> modelMapper.map(monthlyServiceBillEntity1, MonthlyServiceBillDTO.class));
+        Optional<MonthlyServiceBillDTO> monthlyServiceBillDTOOptional =
+                monthlyServiceBillEntity
+                        .map(monthlyServiceBillEntity1 ->
+                                modelMapper.map(monthlyServiceBillEntity1, MonthlyServiceBillDTO.class));
         return monthlyServiceBillDTOOptional;
     }
 
     @Override
     public MonthlyServiceBillDTO save(MonthlyServiceBillDTO monthlyServiceBillDTO) {
         // Chuyển DTO thành entity
-        MonthlyServiceBillEntity monthlyServiceBillEntity = modelMapper.map(monthlyServiceBillDTO, MonthlyServiceBillEntity.class);
+        MonthlyServiceBillEntity monthlyServiceBillEntity =
+                modelMapper.map(monthlyServiceBillDTO, MonthlyServiceBillEntity.class);
 
         // Lưu xuống db và trả về đối tượng entity đã được cập nhật
-        MonthlyServiceBillEntity updatedMonthlyServiceBillEntity = monthlyServiceBillRepository.save(monthlyServiceBillEntity);
+        MonthlyServiceBillEntity updatedMonthlyServiceBillEntity =
+                monthlyServiceBillRepository.save(monthlyServiceBillEntity);
 
         // Chuyển lại đối tượng entity đã được cập nhật sang DTO để trả về:
         return modelMapper.map(updatedMonthlyServiceBillEntity,MonthlyServiceBillDTO.class);
@@ -91,10 +99,12 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
 
             // Lấy ra company và đếm số nhân viên của công ty
             CompanyDTO companyDTO = serviceContractDTO.getCompany();
-            int numberOfEmployee = companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId());
+            int numberOfEmployee = companyEmployeeRepository
+                    .countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId());
 
             // Lấy ra các hợp đồng mặt bằng của công ty đó và đếm tổng diện tích mặt bằng công ty đó thuê
-            List<ContractEntity> contractEntities = contractRepository.getContractEntitiesByCompany_Id(companyDTO.getId());
+            List<ContractEntity> contractEntities = contractRepository
+                    .getContractEntitiesByCompany_Id(companyDTO.getId());
             double sumOfRentedArea = 0;
             for(ContractEntity contract: contractEntities) sumOfRentedArea+= contract.getRentedArea();
 
@@ -110,7 +120,7 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
             basicPricePerMonth = basicPricePerMonth*numberOfDaysUsingService/daysInMonth;
             // Làm tròn
             basicPricePerMonth = (double) Math.floor(basicPricePerMonth * 1000) / 1000;
-            return basicPricePerMonth;
+            return basicPricePerMonth>=0 ? basicPricePerMonth : 0;
 
     }
 

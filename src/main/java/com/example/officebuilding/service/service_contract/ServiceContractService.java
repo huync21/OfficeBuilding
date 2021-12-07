@@ -57,7 +57,12 @@ public class ServiceContractService implements IServiceContractService{
     public ServiceContractDTO save(ServiceContractDTO serviceContractDTO) {
         // Chuyển DTO thành entity
         ServiceContractEntity serviceContractEntity = modelMapper.map(serviceContractDTO, ServiceContractEntity.class);
-
+        try {
+            Date startDate = new SimpleDateFormat("dd-MM-yyyy").parse(serviceContractDTO.getStartDate());
+            serviceContractEntity.setStartDate(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         // Lưu xuống db và trả về đối tượng entity đã được cập nhật
         ServiceContractEntity updatedServiceContractEntity = serviceContractRepository.save(serviceContractEntity);
 

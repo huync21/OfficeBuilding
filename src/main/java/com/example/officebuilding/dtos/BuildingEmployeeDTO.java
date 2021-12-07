@@ -11,5 +11,6 @@ public class BuildingEmployeeDTO {
     private String dateOfBirth;
     private String address;
     private String phoneNo;
+    private String position;
     private SalaryDTO salary;
 }

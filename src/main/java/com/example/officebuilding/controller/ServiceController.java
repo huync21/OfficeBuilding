@@ -27,6 +27,7 @@ public class ServiceController {
         return new ResponseEntity<>(serviceService.findAll(), HttpStatus.OK);
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<ServiceDTO> updateService(@PathVariable Integer id,@RequestBody ServiceDTO serviceDTO){
         // Lấy thử đối tượng có id đó ra xem tồn tại chưa để cập nhật, ko thì trả về status not found

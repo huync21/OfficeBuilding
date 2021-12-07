@@ -28,6 +28,14 @@ public class CompanyController {
         return new ResponseEntity<>(companyService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CompanyDTO> getCompanyById(@PathVariable Integer id){
+        Optional<CompanyDTO> company = companyService.findById(id);
+        return company.map(companyDTO -> {
+            return new ResponseEntity<>(companyDTO,HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<CompanyDTO> updateCompany(@PathVariable Integer id,@RequestBody CompanyDTO companyDTO){
         // Lấy thử đối tượng có id đó ra xem tồn tại chưa để cập nhật, ko thì trả về status not found

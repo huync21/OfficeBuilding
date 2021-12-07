@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IServiceRepository extends JpaRepository<ServiceEntity, Integer> {
     // Tìm những dịch vụ bắt buộc
-    public List<ServiceEntity> findServiceEntitiesByRequired(Integer isRequired);
+     List<ServiceEntity> findServiceEntitiesByRequired(Integer isRequired);
 }

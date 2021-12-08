@@ -3,7 +3,9 @@ package com.example.officebuilding.service.contract;
 import com.example.officebuilding.dao.ContractDAO;
 import com.example.officebuilding.dtos.ContractDTO;
 import com.example.officebuilding.entities.ContractEntity;
+import com.example.officebuilding.entities.FloorEntity;
 import com.example.officebuilding.repository.IContractRepository;
+import com.example.officebuilding.repository.IFloorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class ContractService implements IContractService{
     private ModelMapper modelMapper;
     @Autowired
     private IContractRepository contractRepository;
+    @Autowired
+    private IFloorRepository floorRepository;
 
     @Override
     public List<ContractDTO> findAll() {
@@ -84,4 +88,13 @@ public class ContractService implements IContractService{
     public void createContract(Integer companyId, Integer floorId, ContractDTO contractDTO) {
         contractDAO.createContract(companyId, floorId, contractDTO);
     }
+
+    @Override
+    public List<ContractDTO> getContractsByFloorId(Integer floorId) {
+        return contractRepository.getContractEntitiesByFloor_Id(floorId).stream().map(
+                contractEntity -> modelMapper.map(contractEntity,ContractDTO.class)
+        ).collect(Collectors.toList());
+    }
+
+
 }

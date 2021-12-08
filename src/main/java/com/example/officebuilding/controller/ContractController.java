@@ -1,9 +1,6 @@
 package com.example.officebuilding.controller;
 
-import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.dtos.ContractDTO;
-import com.example.officebuilding.dtos.FloorDTO;
-import com.example.officebuilding.dtos.ServiceContractDTO;
 import com.example.officebuilding.repository.IFloorRepository;
 import com.example.officebuilding.service.contract.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "api/contracts", produces = "application/json")
+@RequestMapping(value = "api/rented-areas", produces = "application/json")
 public class ContractController {
     @Autowired
     private IContractService contractService;
@@ -63,5 +60,14 @@ public class ContractController {
             contractService.remove(id);
             return new ResponseEntity<>(contractDTO, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/floorId={floorId}")
+    public ResponseEntity<List<ContractDTO>> getContractsByFloorId(@PathVariable Integer floorId){
+        List<ContractDTO> contractsByFloorId = contractService.getContractsByFloorId(floorId);
+        if(contractsByFloorId.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(contractsByFloorId,HttpStatus.OK);
     }
 }

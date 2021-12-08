@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "/api/floors", produces = "application/json")
+    @RequestMapping(value = "/api/floors", produces = "application/json")
 public class FloorController {
     @Autowired
     private IFloorService floorService;
@@ -26,6 +26,13 @@ public class FloorController {
     @GetMapping
     public ResponseEntity<List<FloorDTO>> getAllFloors() {
         return new ResponseEntity<>(floorService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FloorDTO> getFloorById(@PathVariable Integer id){
+        return floorService.findById(id).map(floorDTO ->
+                new ResponseEntity<FloorDTO>(floorDTO,HttpStatus.OK))
+                .orElseGet(()-> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{id}")
@@ -48,5 +55,10 @@ public class FloorController {
             floorService.remove(id);
             return new ResponseEntity<>(floorDTO, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/available-area/{id}")
+    public ResponseEntity<Double> getTheRestAreaOfFloor(@PathVariable Integer id){
+        return new ResponseEntity<>(floorService.getTheRestAreaOfFloor(id),HttpStatus.OK);
     }
 }

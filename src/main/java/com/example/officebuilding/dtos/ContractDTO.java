@@ -13,6 +13,7 @@ public class ContractDTO {
     private double rentedArea;
     private String description;
     private int isCanceled;
+    private String position;
     private CompanyDTO company;
     private FloorDTO floor;
 }

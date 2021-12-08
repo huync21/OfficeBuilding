@@ -22,6 +22,7 @@ public class ContractEntity {
     private double rentedArea;
     private String description;
     private int isCanceled;
+    private String position;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)

@@ -3,6 +3,7 @@ package com.example.officebuilding.service.floor;
 import com.example.officebuilding.dtos.FloorDTO;
 import com.example.officebuilding.entities.FloorEntity;
 import com.example.officebuilding.repository.IFloorRepository;
+import com.example.officebuilding.service.contract.IContractService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class FloorService implements IFloorService {
 
     @Autowired
     private IFloorRepository floorRepository;
+
+    @Autowired
+    private IContractService contractService;
 
     @Override
     public List<FloorDTO> findAll() {
@@ -58,5 +62,12 @@ public class FloorService implements IFloorService {
         floorRepository.deleteById(id);
     }
 
+    @Override
+    public double getTheRestAreaOfFloor(Integer floorId) {
+        Optional<FloorEntity> floor = floorRepository.findById(floorId);
+        double theWholeAreaOfFloor = floor.get().getGroundArea();
+        double rentedArea = contractService.getSumOfRentedAreaFloor(floorId);
+        return theWholeAreaOfFloor-rentedArea;
+    }
 
 }

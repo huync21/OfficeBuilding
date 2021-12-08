@@ -11,4 +11,5 @@ public class CompanyDTO {
     private String phoneNo;
     private int numberOfEmployee;
     private double sumOfRentedArea;
+    private String activeField;
 }

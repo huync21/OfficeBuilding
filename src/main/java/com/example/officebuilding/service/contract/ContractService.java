@@ -96,5 +96,19 @@ public class ContractService implements IContractService{
         ).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ContractDTO> getContractsByCompanyId(Integer companyId) {
+        return contractRepository
+                .getContractEntitiesByCompany_Id(companyId)
+                .stream()
+                .map(contractEntity -> {
+                    ContractDTO contractDTO = modelMapper.map(contractEntity, ContractDTO.class);
+                    contractDTO.setCurrentPrice(
+                            contractEntity.getRentedArea()*contractEntity.getFloor().getPricePerM2());
+                    return contractDTO;
+                }
+        ).collect(Collectors.toList());
+    }
+
 
 }

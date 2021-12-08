@@ -14,6 +14,7 @@ public class ContractDTO {
     private String description;
     private int isCanceled;
     private String position;
+    private double currentPrice;
     private CompanyDTO company;
     private FloorDTO floor;
 }

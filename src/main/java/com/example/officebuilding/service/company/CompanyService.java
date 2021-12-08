@@ -7,6 +7,8 @@ import com.example.officebuilding.dtos.ServiceContractDTO;
 import com.example.officebuilding.entities.*;
 import com.example.officebuilding.repository.*;
 import com.example.officebuilding.service.contract.IContractService;
+import com.example.officebuilding.service.service.IServiceService;
+import com.example.officebuilding.service.service_contract.IServiceContractService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,8 @@ public class CompanyService implements ICompanyService{
     private IMonthlyBillRepository monthlyBillRepository;
     @Autowired
     private IContractService contractService;
+    @Autowired
+    private IServiceContractService serviceContractService;
 
     @Override
     public List<CompanyDTO> findAll() {
@@ -105,6 +109,8 @@ public class CompanyService implements ICompanyService{
         companyRepository.deleteById(id);
     }
 
+
+
     @Override
     public List<MonthlyFeeOfCompanyDTO> getMonthlyFeeOfCompany(Integer monthId) {
         // Lấy ra tất cả công ty rồi đổi sáng dto
@@ -165,4 +171,51 @@ public class CompanyService implements ICompanyService{
 
         return result;
     }
+
+    @Override
+    public List<MonthlyFeeOfCompanyDTO> getFeeOfCompanies() {
+        // Lấy ra tất cả công ty rồi đổi sáng dto
+        List<CompanyDTO> companyDTOS = companyRepository.findAll()
+                .stream()
+                .map(companyEntity -> modelMapper.map(companyEntity,CompanyDTO.class)).collect(Collectors.toList());
+        // Lấy ra thống kê tổng tiền tháng này tính đến thời điểm hiện tại của công ty
+        return companyDTOS.stream().map(companyDTO -> {// với mỗi công ty, tính ra tổng tiền phải trả
+                //Tính tổng tiền dịch vụ cho mỗi công ty:
+                double totalFeeOfServices = serviceContractService
+                        .findAllServiceContractOfCompany(companyDTO.getId())
+                        .stream()
+                        .map(serviceContract->serviceContract.getCurrentPrice())
+                        .reduce(0.0,(sum,item)-> sum + item);
+
+                //Tính tổng tiền thuê đất cho mỗi công ty:
+                double totalFeeOfRentedArea = contractService
+                        .getContractsByCompanyId(companyDTO.getId())
+                        .stream()
+                        .map(contract-> (contract.getFloor().getPricePerM2()*contract.getRentedArea()))
+                        .reduce(0.0,(sum,item)-> sum + item);
+
+                double totalFee = totalFeeOfServices+totalFeeOfRentedArea;
+
+                //Lấy diện ra số nhân viên và diện tích mặt bằng
+                companyDTO.setNumberOfEmployee(companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId()));
+                companyDTO.setSumOfRentedArea(contractService.getSumOfRentedArea(companyDTO.getId()));
+
+                MonthlyFeeOfCompanyDTO monthlyFeeOfCompanyDTO = new MonthlyFeeOfCompanyDTO();
+                monthlyFeeOfCompanyDTO.setCompany(companyDTO);
+                monthlyFeeOfCompanyDTO.setTotalAmount(totalFee);
+                return monthlyFeeOfCompanyDTO;
+        }
+        ).sorted((o1, o2) -> {// Sort theo thứ tự giảm dần tiền phải trả
+            double compare = o1.getTotalAmount() - o2.getTotalAmount();
+            if (compare < 0) {
+                return 1;
+            }
+            if (compare > 0) {
+                return -1;
+            }
+            return 0;
+        }).collect(Collectors.toList());
+    }
+
+
 }

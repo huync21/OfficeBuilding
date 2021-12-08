@@ -17,4 +17,5 @@ public class CompanyEntity {
     private String taxCode;
     private double authorizedCapital;
     private String phoneNo;
+    private String activeField;
 }

@@ -11,5 +11,5 @@ public interface IContractService extends IGeneralService<ContractDTO> {
      double getSumOfRentedAreaFloor(Integer floorId);
      void createContract(Integer companyId, Integer floorId, ContractDTO contractDTO );
      List<ContractDTO> getContractsByFloorId(Integer floorId);
-
+     List<ContractDTO> getContractsByCompanyId(Integer companyId);
 }

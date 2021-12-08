@@ -62,4 +62,9 @@ public class CompanyController {
     public ResponseEntity<List<MonthlyFeeOfCompanyDTO>> getMonthlyFeeOfAllCompanies(@PathVariable Integer monthId){
         return new ResponseEntity<>(companyService.getMonthlyFeeOfCompany(monthId),HttpStatus.OK);
     }
+
+    @GetMapping("monthly-fees-till-this-moment")
+    public ResponseEntity<List<MonthlyFeeOfCompanyDTO>> getMonthlyFeesTillThisMoment(){
+        return new ResponseEntity<>(companyService.getFeeOfCompanies(),HttpStatus.OK);
+    }
 }

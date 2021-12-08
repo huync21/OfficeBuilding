@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 
 @Repository
@@ -25,7 +26,9 @@ public class ServiceContractDAO {
             query.setParameter("startDate",dateToSave);
             query.setParameter("description",serviceContractDTO.getDescription());
             query.executeUpdate();
+
             session.getTransaction().commit();
+
         }catch(Exception e){
             if(session.getTransaction() != null) session.getTransaction().rollback();
         }

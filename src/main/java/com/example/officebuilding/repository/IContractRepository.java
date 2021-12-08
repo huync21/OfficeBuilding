@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface IContractRepository extends JpaRepository<ContractEntity, Integer> {
     List<ContractEntity> getContractEntitiesByCompany_Id(Integer companyId);
+    List<ContractEntity> getContractEntitiesByFloor_Id(Integer floorId);
 }

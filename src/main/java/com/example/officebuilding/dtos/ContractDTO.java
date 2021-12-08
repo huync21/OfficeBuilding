@@ -8,8 +8,8 @@ import java.util.Date;
 @Data
 public class ContractDTO {
     private int id;
-    private Date rentedDate;
-    private Date expiredDate;
+    private String rentedDate;
+    private String expiredDate;
     private double rentedArea;
     private String description;
     private int isCanceled;

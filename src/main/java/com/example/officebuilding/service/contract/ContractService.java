@@ -1,5 +1,6 @@
 package com.example.officebuilding.service.contract;
 
+import com.example.officebuilding.dao.ContractDAO;
 import com.example.officebuilding.dtos.ContractDTO;
 import com.example.officebuilding.entities.ContractEntity;
 import com.example.officebuilding.repository.IContractRepository;
@@ -13,7 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ContractService implements IContractService{
-
+    @Autowired
+    private ContractDAO contractDAO;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -67,5 +69,19 @@ public class ContractService implements IContractService{
             result+=contract.getRentedArea();
         }
         return result;
+    }
+    @Override
+    public double getSumOfRentedAreaFloor(Integer floorId) {
+        double result = 0;
+        List<ContractEntity> list = contractRepository.getContractEntitiesByFloor_Id(floorId);
+        for (ContractEntity contract: list){
+            result+=contract.getRentedArea();
+        }
+        return result;
+    }
+
+    @Override
+    public void createContract(Integer companyId, Integer floorId, ContractDTO contractDTO) {
+        contractDAO.createContract(companyId, floorId, contractDTO);
     }
 }

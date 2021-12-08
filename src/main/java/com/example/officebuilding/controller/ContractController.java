@@ -3,6 +3,8 @@ package com.example.officebuilding.controller;
 import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.dtos.ContractDTO;
 import com.example.officebuilding.dtos.FloorDTO;
+import com.example.officebuilding.dtos.ServiceContractDTO;
+import com.example.officebuilding.repository.IFloorRepository;
 import com.example.officebuilding.service.contract.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +20,22 @@ import java.util.Optional;
 public class ContractController {
     @Autowired
     private IContractService contractService;
-
+    @Autowired
+    private IFloorRepository floorRepository;
     @PostMapping
-    public ResponseEntity<ContractDTO> createNewContract(@RequestBody ContractDTO contractDTO){
-        return new ResponseEntity<>(contractService.save(contractDTO), HttpStatus.OK);
+    public ResponseEntity<?> createNewContract(@RequestParam Integer companyId,
+                                                         @RequestParam Integer floorId,
+                                                         @RequestBody ContractDTO contractDTO) {
+        Double sumOfRentedArea = contractService.getSumOfRentedAreaFloor(floorId);
+        if (contractDTO.getRentedArea() <= (floorRepository.getById(floorId).getGroundArea() - sumOfRentedArea))
+        {
+            contractService.createContract(companyId, floorId, contractDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+    }
+            else
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+
+
     }
 
     @GetMapping

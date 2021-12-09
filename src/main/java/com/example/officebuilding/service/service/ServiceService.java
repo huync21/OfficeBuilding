@@ -74,7 +74,7 @@ public class ServiceService implements IServiceService{
 
     @Override
     public List<ServiceDTO> findServicesByName(String name) {
-        return serviceRepository.findServiceEntitiesByName(name)
+        return serviceRepository.findServiceEntitiesByNameContaining(name)
                 .stream().map(serviceEntity -> modelMapper.map(serviceEntity,ServiceDTO.class))
                 .collect(Collectors.toList());
     }

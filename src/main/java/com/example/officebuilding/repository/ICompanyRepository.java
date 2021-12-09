@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ICompanyRepository extends JpaRepository<CompanyEntity, Integer> {
-    List<CompanyEntity> findCompanyEntitiesByName(String name);
+    List<CompanyEntity> findCompanyEntitiesByNameContaining(String name);
 }

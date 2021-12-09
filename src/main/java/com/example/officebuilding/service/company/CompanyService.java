@@ -219,7 +219,7 @@ public class CompanyService implements ICompanyService{
 
     @Override
     public List<CompanyDTO> findCompaniesByName(String name) {
-        return companyRepository.findCompanyEntitiesByName(name)
+        return companyRepository.findCompanyEntitiesByNameContaining(name)
                 .stream().map(companyEntity -> modelMapper.map(companyEntity,CompanyDTO.class))
                 .collect(Collectors.toList());
     }

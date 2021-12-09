@@ -24,7 +24,7 @@ public class ContractEntity {
     private int isCanceled;
     private String position;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "company_id")
     private CompanyEntity company;

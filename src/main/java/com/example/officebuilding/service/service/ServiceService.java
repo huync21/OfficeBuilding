@@ -72,5 +72,10 @@ public class ServiceService implements IServiceService{
         return serviceDAO.findAllUnregisterdServices(companyId,serviceName);
     }
 
-
+    @Override
+    public List<ServiceDTO> findServicesByName(String name) {
+        return serviceRepository.findServiceEntitiesByName(name)
+                .stream().map(serviceEntity -> modelMapper.map(serviceEntity,ServiceDTO.class))
+                .collect(Collectors.toList());
+    }
 }

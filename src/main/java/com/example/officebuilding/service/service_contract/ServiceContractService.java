@@ -144,4 +144,11 @@ public class ServiceContractService implements IServiceContractService{
                 modelMapper.map(serviceContractRepository.findServiceContractEntityByCompany_IdAndService_Id(companyId,serviceId)
                         ,ServiceContractDTO.class));
     }
+
+    @Override
+    public List<ServiceContractDTO> findServiceContractByServiceName(String serviceName) {
+        return serviceContractRepository.findServiceContractEntityByService_Name(serviceName)
+                .stream().map(serviceContract -> modelMapper.map(serviceContract,ServiceContractDTO.class))
+                .collect(Collectors.toList());
+    }
 }

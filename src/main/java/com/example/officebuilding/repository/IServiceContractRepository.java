@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface IServiceContractRepository extends JpaRepository<ServiceContractEntity, Integer> {
     List<ServiceContractEntity> getServiceContractEntitiesByCompany_Id(@Param("id") Integer id);
     Optional<ServiceContractEntity> findServiceContractEntityByCompany_IdAndService_Id(Integer companyId,Integer serviceId);
+    List<ServiceContractEntity> findServiceContractEntityByService_Name(String serviceName);
 }

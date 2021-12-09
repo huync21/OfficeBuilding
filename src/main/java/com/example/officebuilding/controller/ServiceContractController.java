@@ -68,4 +68,8 @@ public class ServiceContractController {
         return new ResponseEntity<>(new MessageDTO("Công ty đã đăng ký dịch vụ này rồi!"),HttpStatus.EXPECTATION_FAILED);
     }
 
+    @GetMapping("/service-name={serviceName}")
+    public ResponseEntity<List<ServiceContractDTO>> getServiceContractsByServiceName(@PathVariable String serviceName){
+        return new ResponseEntity<>( serviceContractService.findServiceContractByServiceName(serviceName),HttpStatus.OK);
+    }
 }

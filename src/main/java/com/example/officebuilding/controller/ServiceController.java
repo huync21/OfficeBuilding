@@ -68,4 +68,13 @@ public class ServiceController {
 
     }
 
+    @GetMapping("/name={name}")
+    public ResponseEntity<List<ServiceDTO>> findServicesByName(@PathVariable String name){
+        List<ServiceDTO> services = serviceService.findServicesByName(name);
+        if(services.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(services,HttpStatus.OK);
+    }
+
 }

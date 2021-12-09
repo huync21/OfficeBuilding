@@ -223,4 +223,6 @@ public class CompanyService implements ICompanyService{
                 .stream().map(companyEntity -> modelMapper.map(companyEntity,CompanyDTO.class))
                 .collect(Collectors.toList());
     }
+
+
 }

@@ -68,4 +68,10 @@ public class CompanyEmployeeController {
         companyEmployeeDAO.insertCompanyEmployeeByCompanyId(id,companyEmployeeDTO);
     }
 
+    @GetMapping("/get-by-name")
+    public ResponseEntity<List<CompanyEmployeeDTO>> getEmployeesByName(@RequestParam String empName,@RequestParam Integer companyId){
+        return new ResponseEntity<>(companyEmployeeService.findEmployeesByNameAndCompanyId(empName,companyId),HttpStatus.OK);
+    }
+
+
 }

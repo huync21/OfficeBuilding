@@ -76,4 +76,11 @@ public class CompanyEmployeeService implements ICompanyEmployeeService{
     public int countCompanyEmployeesByCompanyID(Integer companyId) {
         return companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyId);
     }
+
+    @Override
+    public List<CompanyEmployeeDTO> findEmployeesByNameAndCompanyId(String empName, Integer companyId) {
+        return companyEmployeeRepository.getCompanyEmployeeEntitiesByNameAndCompany_Id(empName,companyId)
+                .stream().map(companyEmployee -> modelMapper.map(companyEmployee,CompanyEmployeeDTO.class))
+                .collect(Collectors.toList());
+    }
 }

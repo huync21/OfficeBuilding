@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface ICompanyEmployeeRepository extends JpaRepository<CompanyEmployeeEntity, Integer> {
     List<CompanyEmployeeEntity> getCompanyEmployeeEntitiesByCompany_Id(@Param("id") Integer id);
-
-    public int countCompanyEmployeeEntitiesByCompany_Id(Integer companyId);
-
-
+    int countCompanyEmployeeEntitiesByCompany_Id(Integer companyId);
+    List<CompanyEmployeeEntity> getCompanyEmployeeEntitiesByNameAndCompany_Id(String empName,Integer companyId);
 }

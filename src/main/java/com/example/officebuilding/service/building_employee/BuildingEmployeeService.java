@@ -1,5 +1,6 @@
 package com.example.officebuilding.service.building_employee;
 
+import com.example.officebuilding.dao.BuildingEmployeeDAO;
 import com.example.officebuilding.dtos.BuildingEmployeeDTO;
 import com.example.officebuilding.dtos.BuildingEmployeeDTO;
 import com.example.officebuilding.entities.BuildingEmployeeEntity;
@@ -8,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +23,9 @@ public class BuildingEmployeeService implements IBuildingEmployeeService {
     @Autowired
     private IBuildingEmployeeRepository buildingEmployeeRepository;
 
+    @Autowired
+    private BuildingEmployeeDAO buildingEmployeeDAO;
+
     @Override
     public List<BuildingEmployeeDTO> findAll() {
         // Gọi repo lấy từ db
@@ -28,6 +34,18 @@ public class BuildingEmployeeService implements IBuildingEmployeeService {
         //Chuyển các entities thành các đối tượng Data Transfer Object(DTO) rồi trả về cho controller
         List<BuildingEmployeeDTO> buildingEmployeeDTOS = buildingEmployeeEntities.stream().map(buildingEmployeeEntity -> modelMapper.map(buildingEmployeeEntity, BuildingEmployeeDTO.class))
                 .collect(Collectors.toList());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf1 = new SimpleDateFormat(("yyyy-MM-dd"));
+        buildingEmployeeDTOS.forEach(buildingEmployeeDTO -> {
+            String dob = null;
+            try {
+                dob = sdf.format((sdf1.parse(buildingEmployeeDTO.getDateOfBirth())));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            buildingEmployeeDTO.setDateOfBirth(dob);
+        });
         return buildingEmployeeDTOS;
     }
 
@@ -53,6 +71,10 @@ public class BuildingEmployeeService implements IBuildingEmployeeService {
         return modelMapper.map(updatedBuildingEmployeeEntity,BuildingEmployeeDTO.class);
     }
 
+    @Override
+    public void createNewBuildingEmployeeBySalaryId(Integer salaryId, BuildingEmployeeDTO buildingEmployeeDTO){
+        buildingEmployeeDAO.createBuildingEmployeeBySalaryId(salaryId, buildingEmployeeDTO);
+    }
 
     @Override
     public void remove(Integer id) {

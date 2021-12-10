@@ -1,5 +1,6 @@
 package com.example.officebuilding.controller;
 
+import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.dtos.ServiceDTO;
 import com.example.officebuilding.service.service.IServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,13 @@ public class ServiceController {
         return new ResponseEntity<>(serviceService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ServiceDTO> findServiceById(@PathVariable Integer id){
+        Optional<ServiceDTO> service = serviceService.findById(id);
+        return service.map(serviceDTO -> {
+            return new ResponseEntity<>(serviceDTO,HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ServiceDTO> updateService(@PathVariable Integer id,@RequestBody ServiceDTO serviceDTO){

@@ -1,6 +1,7 @@
 package com.example.officebuilding.controller;
 
 import com.example.officebuilding.dtos.BuildingEmployeeDTO;
+import com.example.officebuilding.dtos.SalaryDTO;
 import com.example.officebuilding.service.building_employee.IBuildingEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,14 +18,23 @@ public class BuildingEmployeeController {
     @Autowired
     private IBuildingEmployeeService buildingEmployeeService;
 
-    @PostMapping
-    public ResponseEntity<BuildingEmployeeDTO> createNewBuildingEmployee(@RequestBody BuildingEmployeeDTO buildingEmployeeDTO){
-        return new ResponseEntity<>(buildingEmployeeService.save(buildingEmployeeDTO), HttpStatus.OK);
+    @PostMapping("/create/salaryId={id}")
+    public ResponseEntity<?> createNewBuildingEmployeeBySalaryId(@PathVariable Integer id, @RequestBody BuildingEmployeeDTO buildingEmployeeDTO){
+        buildingEmployeeService.createNewBuildingEmployeeBySalaryId(id,buildingEmployeeDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<BuildingEmployeeDTO>> getAllBuildingEmployees() {
         return new ResponseEntity<>(buildingEmployeeService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BuildingEmployeeDTO> getBuildingEmployeeById(@PathVariable Integer id){
+        Optional<BuildingEmployeeDTO> be = buildingEmployeeService.findById(id);
+        return be.map(buildingEmployeeDTO -> {
+            return new ResponseEntity<>(buildingEmployeeDTO,HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{id}")

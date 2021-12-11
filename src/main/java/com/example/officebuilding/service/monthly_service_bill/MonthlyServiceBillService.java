@@ -3,15 +3,18 @@ package com.example.officebuilding.service.monthly_service_bill;
 import com.example.officebuilding.dtos.*;
 import com.example.officebuilding.entities.ContractEntity;
 import com.example.officebuilding.entities.MonthlyServiceBillEntity;
+import com.example.officebuilding.entities.ServiceContractEntity;
 import com.example.officebuilding.repository.ICompanyEmployeeRepository;
 import com.example.officebuilding.repository.IContractRepository;
 import com.example.officebuilding.repository.IMonthlyServiceBillRepository;
+import com.example.officebuilding.repository.IServiceContractRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +33,9 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
 
     @Autowired
     private IContractRepository contractRepository;
+
+    @Autowired
+    private IServiceContractRepository serviceContractRepository;
 
     @Override
     public List<MonthlyServiceBillDTO> findAll() {
@@ -122,6 +128,21 @@ public class MonthlyServiceBillService implements IMonthlyServiceBillService{
             basicPricePerMonth = (double) Math.floor(basicPricePerMonth * 1000) / 1000;
             return basicPricePerMonth>=0 ? basicPricePerMonth : 0;
 
+    }
+
+    @Override
+    public List<MonthlyServiceBillDTO> findMonthlyServiceBillsOfCompanyInAMonth(Integer companyId, Integer monthId) {
+        List<ServiceContractEntity> serviceContractEntitiesByCompany_id = serviceContractRepository.getServiceContractEntitiesByCompany_Id(companyId);
+        List<MonthlyServiceBillDTO> result = new ArrayList<>();
+        serviceContractEntitiesByCompany_id.stream()
+                .forEach(serviceContract -> {
+                    result.addAll(monthlyServiceBillRepository
+                            .findMonthlyServiceBillEntitiesByMonth_IdAndServiceContract_Id(monthId,serviceContract.getId())
+                            .stream().map(monthlyServiceBillEntity -> {
+                                return modelMapper.map(monthlyServiceBillEntity,MonthlyServiceBillDTO.class);
+                            }).collect(Collectors.toList()));
+                });
+        return result;
     }
 
 }

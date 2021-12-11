@@ -2,6 +2,7 @@ package com.example.officebuilding.service.company;
 
 import com.example.officebuilding.dao.ServiceContractDAO;
 import com.example.officebuilding.dtos.CompanyDTO;
+import com.example.officebuilding.dtos.MonthDTO;
 import com.example.officebuilding.dtos.MonthlyFeeOfCompanyDTO;
 import com.example.officebuilding.dtos.ServiceContractDTO;
 import com.example.officebuilding.entities.*;
@@ -41,6 +42,8 @@ public class CompanyService implements ICompanyService{
     private IContractService contractService;
     @Autowired
     private IServiceContractService serviceContractService;
+    @Autowired
+    private IMonthRepository monthRepository;
 
     @Override
     public List<CompanyDTO> findAll() {
@@ -113,6 +116,8 @@ public class CompanyService implements ICompanyService{
 
     @Override
     public List<MonthlyFeeOfCompanyDTO> getMonthlyFeeOfCompany(Integer monthId) {
+        // Lấy ra tháng đó
+        MonthDTO monthDTO = modelMapper.map(monthRepository.findById(monthId).get(), MonthDTO.class);
         // Lấy ra tất cả công ty rồi đổi sáng dto
         List<CompanyDTO> companyDTOS = companyRepository.findAll()
                 .stream()
@@ -156,7 +161,7 @@ public class CompanyService implements ICompanyService{
                     // Cộng vào lấy ra tổng tiền từng tháng
                     double totalSum = totalFeeOfRentedArea+totalFeeOfServices;
                     monthlyFeeOfCompanyDTO.setTotalAmount(totalSum);
-
+                    monthlyFeeOfCompanyDTO.setMonth(monthDTO);
                     return monthlyFeeOfCompanyDTO;
                 }).sorted((o1, o2) -> {// Sort theo thứ tự giảm dần tiền phải trả
                     double compare = o1.getTotalAmount() - o2.getTotalAmount();

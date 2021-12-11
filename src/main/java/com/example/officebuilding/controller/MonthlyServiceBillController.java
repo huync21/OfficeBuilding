@@ -50,4 +50,12 @@ public class MonthlyServiceBillController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/find-all-by-company-and-month")
+    public ResponseEntity<List<MonthlyServiceBillDTO>> findAllByCompanyIdAndMonthId(@RequestParam Integer companyId,
+                                                                              @RequestParam Integer monthId){
+        List<MonthlyServiceBillDTO> result =
+                monthlyServiceBillService.findMonthlyServiceBillsOfCompanyInAMonth(companyId, monthId);
+        if(result.isEmpty())return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 }

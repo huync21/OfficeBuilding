@@ -1,6 +1,7 @@
 package com.example.officebuilding.controller;
 
 import com.example.officebuilding.dtos.BuildingEmployeeDTO;
+import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.dtos.SalaryDTO;
 import com.example.officebuilding.service.building_employee.IBuildingEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class BuildingEmployeeController {
         return be.map(buildingEmployeeDTO -> {
             return new ResponseEntity<>(buildingEmployeeDTO,HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<BuildingEmployeeDTO>> getBuildingEmployeeByName(@PathVariable String name){
+        return new ResponseEntity<>(buildingEmployeeService.findBuildingEmployeeByName(name),HttpStatus.OK);
     }
 
     @PutMapping("/{empId}/{salaryId}")

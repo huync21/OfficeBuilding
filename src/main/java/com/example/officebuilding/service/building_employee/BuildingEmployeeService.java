@@ -3,6 +3,7 @@ package com.example.officebuilding.service.building_employee;
 import com.example.officebuilding.dao.BuildingEmployeeDAO;
 import com.example.officebuilding.dtos.BuildingEmployeeDTO;
 import com.example.officebuilding.dtos.BuildingEmployeeDTO;
+import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.entities.BuildingEmployeeEntity;
 import com.example.officebuilding.repository.IBuildingEmployeeRepository;
 import org.modelmapper.ModelMapper;
@@ -57,6 +58,25 @@ public class BuildingEmployeeService implements IBuildingEmployeeService {
         //Chuyển entity thành DTO rồi trả về cho controller:
         Optional<BuildingEmployeeDTO> buildingEmployeeDTOOptional = buildingEmployeeEntity.map(buildingEmployeeEntity1 -> modelMapper.map(buildingEmployeeEntity1, BuildingEmployeeDTO.class));
         return buildingEmployeeDTOOptional;
+    }
+
+    @Override
+    public List<BuildingEmployeeDTO> findBuildingEmployeeByName(String name) {
+        List<BuildingEmployeeDTO> buildingEmployeeDTOS = buildingEmployeeRepository.findBuildingEmployeeEntitiesByNameContaining(name)
+                .stream().map(buildingEmployeeEntity -> modelMapper.map(buildingEmployeeEntity,BuildingEmployeeDTO.class))
+                .collect(Collectors.toList());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf1 = new SimpleDateFormat(("yyyy-MM-dd"));
+        buildingEmployeeDTOS.forEach(buildingEmployeeDTO -> {
+            String dob = null;
+            try {
+                dob = sdf.format((sdf1.parse(buildingEmployeeDTO.getDateOfBirth())));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            buildingEmployeeDTO.setDateOfBirth(dob);
+        });
+        return buildingEmployeeDTOS;
     }
 
     @Override

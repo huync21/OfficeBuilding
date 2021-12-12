@@ -80,4 +80,9 @@ public class BuildingEmployeeService implements IBuildingEmployeeService {
     public void remove(Integer id) {
         buildingEmployeeRepository.deleteById(id);
     }
+
+    @Override
+    public void updateBuildingEmployee(Integer empId, Integer salaryId, BuildingEmployeeDTO buildingEmployeeDTO){
+        buildingEmployeeDAO.updateBuildingEmployee(empId, salaryId, buildingEmployeeDTO);
+    }
 }

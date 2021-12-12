@@ -55,7 +55,7 @@ public class MonthlyServiceBillController {
                                                                               @RequestParam Integer monthId){
         List<MonthlyServiceBillDTO> result =
                 monthlyServiceBillService.findMonthlyServiceBillsOfCompanyInAMonth(companyId, monthId);
-        if(result.isEmpty())return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else return new ResponseEntity<>(result,HttpStatus.OK);
+
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

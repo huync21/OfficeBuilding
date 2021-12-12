@@ -20,7 +20,6 @@ public class MonthlyBillController {
     private ResponseEntity<List<MonthlyBillDTO>> getMonthlyBillsByCompanyIdAndMonthId(@RequestParam Integer companyId,
                                                                                       @RequestParam Integer monthId){
         List<MonthlyBillDTO> monthlyBillsOfCompanyInAMonth = monthlyBillService.findMonthlyBillsOfCompanyInAMonth(companyId, monthId);
-        if(monthlyBillsOfCompanyInAMonth.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else return new ResponseEntity<>(monthlyBillsOfCompanyInAMonth,HttpStatus.OK);
+        return new ResponseEntity<>(monthlyBillsOfCompanyInAMonth,HttpStatus.OK);
     }
 }

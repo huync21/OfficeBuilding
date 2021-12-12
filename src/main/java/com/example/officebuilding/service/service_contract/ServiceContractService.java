@@ -80,9 +80,6 @@ public class ServiceContractService implements IServiceContractService{
     public List<ServiceContractDTO> findAllServiceContractOfCompany(Integer companyId) {
         // Lấy list entities từ db lên
         List<ServiceContractEntity> serviceContractEntities = serviceContractRepository.getServiceContractEntitiesByCompany_Id(companyId);
-        serviceContractEntities.forEach(serviceContract -> {
-
-        });
 
         // Đổi list entities đó về dto
         List<ServiceContractDTO> serviceContractDTOs = serviceContractEntities.stream()

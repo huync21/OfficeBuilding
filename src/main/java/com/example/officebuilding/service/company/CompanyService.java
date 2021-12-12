@@ -127,7 +127,7 @@ public class CompanyService implements ICompanyService{
         List<MonthlyFeeOfCompanyDTO> result = companyDTOS.stream()
                 .map(companyDTO -> { // Với mỗi công ty, tính tổng tiền phải trả của tháng đó
                     MonthlyFeeOfCompanyDTO monthlyFeeOfCompanyDTO = new MonthlyFeeOfCompanyDTO();
-                    monthlyFeeOfCompanyDTO.setCompany(companyDTO);
+
 
                     // Lấy ra tất cả bill của service trong tháng đó của công ty rồi tính tổng tiền dịch vụ
                     List<MonthlyServiceBillEntity> monthlyServiceBillEntities = new ArrayList<>();
@@ -162,6 +162,12 @@ public class CompanyService implements ICompanyService{
                     double totalSum = totalFeeOfRentedArea+totalFeeOfServices;
                     monthlyFeeOfCompanyDTO.setTotalAmount(totalSum);
                     monthlyFeeOfCompanyDTO.setMonth(monthDTO);
+
+                    //Lấy diện ra số nhân viên và diện tích mặt bằng
+                    companyDTO.setNumberOfEmployee(companyEmployeeRepository.countCompanyEmployeeEntitiesByCompany_Id(companyDTO.getId()));
+                    companyDTO.setSumOfRentedArea(contractService.getSumOfRentedArea(companyDTO.getId()));
+                    monthlyFeeOfCompanyDTO.setCompany(companyDTO);
+                    
                     return monthlyFeeOfCompanyDTO;
                 }).sorted((o1, o2) -> {// Sort theo thứ tự giảm dần tiền phải trả
                     double compare = o1.getTotalAmount() - o2.getTotalAmount();

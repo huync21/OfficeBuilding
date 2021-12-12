@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IMonthlySalaryRepository extends JpaRepository<MonthlySalaryEntity,Integer> {
-     List<MonthlySalaryEntity> findMonthlySalaryEntityByMonth_Id(Integer monthId);
+     List<MonthlySalaryEntity> findMonthlySalaryEntitiesByMonth_Id(Integer monthId);
 }

@@ -16,6 +16,11 @@ public class MonthlySalaryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private double salary;
+    private String empName;
+    private String address;
+    private String phoneNo;
+    private String position;
+    private int salaryLevel;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)

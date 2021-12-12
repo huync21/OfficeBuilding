@@ -61,7 +61,7 @@ public class MonthlySalaryService implements IMonthlySalaryService{
 
     @Override
     public List<MonthlySalaryDTO> getMonthlySalariesByMonthId(Integer monthId) {
-        List<MonthlySalaryDTO> monthlySalaryDTOS = monthlySalaryRepository.findMonthlySalaryEntityByMonth_Id(monthId)
+        List<MonthlySalaryDTO> monthlySalaryDTOS = monthlySalaryRepository.findMonthlySalaryEntitiesByMonth_Id(monthId)
                 .stream().map(monthlySalaryEntity ->
                         modelMapper.map(monthlySalaryEntity, MonthlySalaryDTO.class))
                 .collect(Collectors.toList());

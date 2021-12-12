@@ -44,6 +44,7 @@ public class BuildingEmployeeDAO {
             session.getTransaction().commit();
         }catch(Exception e){
             if(session.getTransaction() != null) session.getTransaction().rollback();
+
         }
     }
 }

@@ -65,18 +65,12 @@ public class ContractController {
     @GetMapping("/floorId={floorId}")
     public ResponseEntity<List<ContractDTO>> getContractsByFloorId(@PathVariable Integer floorId){
         List<ContractDTO> contractsByFloorId = contractService.getContractsByFloorId(floorId);
-        if(contractsByFloorId.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(contractsByFloorId,HttpStatus.OK);
     }
 
     @GetMapping("/companyId={companyId}")
     public ResponseEntity<List<ContractDTO>> getContractsByCompanyId(@PathVariable Integer companyId){
         List<ContractDTO> contractsByFloorId = contractService.getContractsByCompanyId(companyId);
-        if(contractsByFloorId.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(contractsByFloorId,HttpStatus.OK);
     }
 }

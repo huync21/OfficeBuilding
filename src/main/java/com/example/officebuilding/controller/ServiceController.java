@@ -1,5 +1,6 @@
 package com.example.officebuilding.controller;
 
+import com.example.officebuilding.dtos.BuildingEmployeeDTO;
 import com.example.officebuilding.dtos.CompanyDTO;
 import com.example.officebuilding.dtos.ServiceDTO;
 import com.example.officebuilding.service.service.IServiceService;
@@ -76,7 +77,7 @@ public class ServiceController {
 
     }
 
-    @GetMapping("/name={name}")
+    @GetMapping("/name/{name}")
     public ResponseEntity<List<ServiceDTO>> findServicesByName(@PathVariable String name){
         List<ServiceDTO> services = serviceService.findServicesByName(name);
         if(services.isEmpty()){

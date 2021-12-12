@@ -40,7 +40,11 @@ public class BuildingEmployeeController {
 
     @GetMapping("/name/{name}")
     public ResponseEntity<List<BuildingEmployeeDTO>> getBuildingEmployeeByName(@PathVariable String name){
-        return new ResponseEntity<>(buildingEmployeeService.findBuildingEmployeeByName(name),HttpStatus.OK);
+        List<BuildingEmployeeDTO> buildingEmployeeDTOS = buildingEmployeeService.findBuildingEmployeeByName(name);
+        if(buildingEmployeeDTOS.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(buildingEmployeeDTOS,HttpStatus.OK);
     }
 
     @PutMapping("/{empId}/{salaryId}")

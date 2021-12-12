@@ -6,4 +6,5 @@ import com.example.officebuilding.service.IGeneralService;
 
 public interface IBuildingEmployeeService extends IGeneralService<BuildingEmployeeDTO> {
     void createNewBuildingEmployeeBySalaryId(Integer salaryId, BuildingEmployeeDTO buildingEmployeeDTO);
+    void updateBuildingEmployee(Integer empId, Integer salaryId, BuildingEmployeeDTO buildingEmployeeDTO);
 }

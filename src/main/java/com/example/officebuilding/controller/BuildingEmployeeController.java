@@ -37,16 +37,10 @@ public class BuildingEmployeeController {
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<BuildingEmployeeDTO> updateBuildingEmployee(@PathVariable Integer id, @RequestBody BuildingEmployeeDTO buildingEmployeeDTO){
-        // Lấy thử đối tượng có id đó ra xem tồn tại chưa để cập nhật, ko thì trả về status not found
-        Optional<BuildingEmployeeDTO> buildingEmployeeDTOOptional = buildingEmployeeService.findById(id);
-
-        return buildingEmployeeDTOOptional.map(buildingEmployeeDTO1 -> {
-            buildingEmployeeDTO.setId(buildingEmployeeDTO1.getId());
-            BuildingEmployeeDTO updatedBuildingEmployee = buildingEmployeeService.save(buildingEmployeeDTO);
-            return new ResponseEntity<>(updatedBuildingEmployee,HttpStatus.OK);
-        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @PutMapping("/{empId}/{salaryId}")
+    public ResponseEntity<?> updateBuildingEmployee( @PathVariable Integer empId, @PathVariable Integer salaryId, @RequestBody BuildingEmployeeDTO buildingEmployeeDTO){
+        buildingEmployeeService.updateBuildingEmployee(empId, salaryId, buildingEmployeeDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
